@@ -4,92 +4,90 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact - ZAR</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
     <header>
         <nav>
-            <img src="" alt="Zagiart Renov">
-            <a href="index.html">Accueil</a>
-            <a href="contact.html">Contact</a>
-            <a href="apropos.html">À propos</a>
+            <img src="../img/logo_ZAR.png" alt="Zagiart Renov">
+            <div class="nav_liens">
+                <a href="index.html">Accueil</a>
+                <a href="contact.html">Contact</a>
+                <a href="apropos.html">À propos</a>
+            </div>
         </nav>
     </header>
 
-    <h1>Contactez-moi</h1>
-    <p>Vous avez un projet ? Remplissez le formulaire ou contactez-moi directement.</p>
-
     <section class="contact">
-        <form action="" method="post" class="formulaire_devis">
+        <h1>Contactez-moi</h1>
+        <p>Vous avez un projet ? Remplissez le formulaire ou contactez-moi directement.</p>
 
-            <div class="form_groupe">
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
+        <div class="contact_contenu">
+
+            <form action="" method="post" class="formulaire_devis">
+                <div class="form_groupe">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
+                </div>
+                <div class="form_groupe">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+                </div>
+                <div class="form_groupe">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.fr" required>
+                </div>
+                <div class="form_groupe">
+                    <label for="tel">Téléphone</label>
+                    <input type="tel" id="tel" name="tel" placeholder="06 xx xx xx xx" required>
+                </div>
+                <div class="form_groupe">
+                    <label for="presta">Type de prestation</label>
+                    <select id="presta" name="presta" required>
+                        <option value="" disabled selected>Choisir...</option>
+                        <option value="electricite">Électricité</option>
+                        <option value="plomberie">Plomberie</option>
+                        <option value="peinture">Peinture</option>
+                        <option value="menuiserie">Menuiserie</option>
+                    </select>
+                </div>
+                <div class="form_groupe">
+                    <label for="description">Décrivez vos travaux</label>
+                    <textarea id="description" name="description" rows="5" placeholder="Décrivez votre projet, la surface, les délais souhaités..."></textarea>
+                </div>
+                <div class="form_groupe">
+                    <button type="submit">Envoyer ma demande</button>
+                </div>
+            </form>
+
+            <div class="contact_coordonnees">
+                <p>Téléphone : <a href="tel:+33676091120">06 76 09 11 20</a></p>
+                <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
+                <p>Zone d'intervention : Paris & Île-de-France</p>
+                <p>Horaires : Lun–Ven 8h–19h / Sam 9h–17h</p>
+                <div id="map"></div>
             </div>
 
-            <div class="form_groupe">
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" placeholder="Dupont" required>
-            </div>
-
-            <div class="form_groupe">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="votre@email.fr" required>
-            </div>
-
-            <div class="form_groupe">
-                <label for="tel">Téléphone</label>
-                <input type="tel" id="tel" name="tel" placeholder="06 xx xx xx xx" required>
-            </div>
-
-            <div class="form_groupe">
-                <label for="presta">Type de prestation</label>
-                <select id="presta" name="presta" required>
-                    <option value="" disabled selected>Choisir...</option>
-                    <option value="electricite">Électricité</option>
-                    <option value="plomberie">Plomberie</option>
-                    <option value="peinture">Peinture</option>
-                    <option value="menuiserie">Menuiserie</option>
-                </select>
-            </div>
-
-            <div class="form_groupe">
-                <label for="description">Décrivez vos travaux</label>
-                <textarea id="description" name="description" rows="5" placeholder="Décrivez votre projet, la surface, les délais souhaités..."></textarea>
-            </div>
-
-            <div class="form_groupe">
-                <button type="submit">Envoyer ma demande</button>
-            </div>
-
-        </form>
-    
-    <div class="contact_coordonnees">
-        <p>Téléphone : <a href="tel:+33676091120">06 76 09 11 20</a></p>
-        <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
-        <p>Zone d'intervention : Paris & Île-de-France</p>
-        <p>Horaires : Lun–Ven 8h–19h / Sam 9h–17h</p>
-    </div>
+        </div>
     </section>
 
-<footer>
+    <footer>
+        <div class="footer_gauche">
+            <p>Adresse : 12 rue des Artisans, Paris</p>
+            <p>Tél : <a href="tel:+33676091120">06 76 09 11 20</a></p>
+            <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
+        </div>
+        <div class="footer_droite">
+            <a href="contact.html">Contact</a>
+            <a href="apropos.html">À propos</a>
+        </div>
+        <p class="footer_copyright">©2025 - Tous droits réservés</p>
+    </footer>
 
-    <div class="footer_gauche">
-        <p>Adresse : 12 rue des Artisans, Paris</p>
-        <p>Tél : <a href="tel:+33676091120">06 76 09 11 20</a></p>
-        <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
-    </div>
-
-    <div class="footer_droite">
-        <a href="contact.html">Contact</a>
-        <a href="apropos.html">À propos</a>
-    </div>
-
-    <p class="footer_copyright">©2025 - Tous droits réservés</p>
-
-</footer>
-
+    <script src="../js/main.js"></script>
 </body>
 </html>

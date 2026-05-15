@@ -1,0 +1,334 @@
+:root {
+    --couleur-primaire: #1B3A5C;
+    --couleur-secondaire: #F4A825;
+    --couleur-fond: #F8F6F2;
+    --couleur-texte: #2C2C2C;
+    --couleur-muted: #6B6B6B;
+    --couleur-border: #E0DDD7;
+    --font-titre: 'Bebas Neue', sans-serif;
+    --font-corps: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-corps);
+    background-color: var(--couleur-fond);
+    color: var(--couleur-texte);
+}
+
+/* ===========================
+   HEADER / NAV
+=========================== */
+header {
+    background-color: var(--couleur-primaire);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+}
+
+nav img {
+    width: auto;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.nav_liens {
+    display: flex;
+    gap: 32px;
+}
+
+.nav_liens a {
+    color: white;
+    text-decoration: none;
+    font-family: var(--font-corps);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav_liens a:hover {
+    color: var(--couleur-secondaire);
+}
+
+
+/* ===========================
+   SECTION CONTACT
+=========================== */
+.contact {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 60px;
+}
+
+.contact h1 {
+    font-family: var(--font-titre);
+    font-size: 2.5rem;
+    color: var(--couleur-primaire);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.contact > p {
+    font-size: 1rem;
+    color: var(--couleur-muted);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.contact_contenu {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* ===========================
+   FORMULAIRE
+=========================== */
+.formulaire_devis {
+    flex: 3;
+    background-color: white;
+    padding: 32px;
+    border-radius: 10px;
+    border: 1px solid var(--couleur-border);
+}
+
+.form_groupe {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form_groupe label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--couleur-primaire);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 6px;
+}
+
+.form_groupe input,
+.form_groupe select,
+.form_groupe textarea {
+    font-family: var(--font-corps);
+    font-size: 0.9rem;
+    color: var(--couleur-texte);
+    background-color: var(--couleur-fond);
+    border: 1px solid var(--couleur-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    outline: none;
+}
+
+.form_groupe input:focus,
+.form_groupe select:focus,
+.form_groupe textarea:focus {
+    border-color: var(--couleur-primaire);
+}
+
+.form_groupe textarea {
+    resize: vertical;
+    min-height: 160px;
+}
+
+.form_groupe button {
+    font-family: var(--font-corps);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--couleur-primaire);
+    background-color: var(--couleur-secondaire);
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.form_groupe button:hover {
+    opacity: 0.9;
+}
+
+/* ===========================
+   COORDONNÉES
+=========================== */
+.contact_coordonnees {
+    flex: 2;
+    background-color: white;
+    padding: 28px;
+    border-radius: 10px;
+    border: 1px solid var(--couleur-border);
+    border-top: 4px solid var(--couleur-secondaire);
+    position: sticky;
+    top: 20px;
+}
+
+.contact_coordonnees p {
+    font-size: 0.9rem;
+    color: var(--couleur-muted);
+    line-height: 1.6;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--couleur-border);
+    margin-bottom: 0;
+}
+
+.contact_coordonnees p:last-of-type {
+    border-bottom: none;
+}
+
+.contact_coordonnees a {
+    color: var(--couleur-primaire);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contact_coordonnees a:hover {
+    color: var(--couleur-secondaire);
+}
+
+/* ===========================
+   CARTE
+=========================== */
+#map {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    margin-top: 16px;
+    border: 1px solid var(--couleur-border);
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: var(--couleur-primaire);
+    padding: 32px 40px;
+    margin-top: 80px;
+    gap: 20px;
+}
+
+.footer_gauche p,
+.footer_droite a {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 8px;
+    display: block;
+    text-decoration: none;
+}
+
+.footer_gauche a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+}
+
+.footer_gauche a:hover,
+.footer_droite a:hover {
+    color: var(--couleur-secondaire);
+}
+
+.footer_copyright {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===========================
+   TABLETTE (max 1024px)
+=========================== */
+@media (max-width: 1024px) {
+
+    nav {
+        padding: 16px 24px;
+    }
+
+    .contact {
+        padding: 0 32px;
+        margin: 40px auto;
+    }
+
+    .contact_contenu {
+        gap: 24px;
+    }
+
+    .contact_hero {
+        padding: 40px 32px;
+    }
+
+    footer {
+        padding: 24px;
+    }
+}
+
+/* ===========================
+   TÉLÉPHONE (max 768px)
+=========================== */
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+
+    .nav_liens {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .contact_hero {
+        padding: 32px 20px;
+    }
+
+    .contact_hero h2 {
+        font-size: 2rem;
+    }
+
+    .contact_contenu {
+        flex-direction: column;
+    }
+
+    .contact h1 {
+        font-size: 2rem;
+    }
+
+    .contact {
+        padding: 0 20px;
+    }
+
+    .formulaire_devis {
+        padding: 20px;
+    }
+
+    .contact_coordonnees {
+        padding: 20px;
+        position: static;
+    }
+
+    #map {
+        height: 200px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px 20px;
+    }
+}
