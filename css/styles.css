@@ -26,6 +26,7 @@ body {
 =========================== */
 header {
     background-color: var(--couleur-primaire);
+    border-bottom: 1px solid var(--couleur-fond);
 }
 
 nav {
