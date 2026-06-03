@@ -9,16 +9,7 @@
 </head>
 <body>
 
-    <header>
-        <nav>
-            <img src="../img/logo_ZAR.png" alt="Zagiart Renov">
-            <div class="nav_liens">
-                <a href="index.html">Accueil</a>
-                <a href="contact.html">Contact</a>
-                <a href="apropos.html">À propos</a>
-            </div>
-        </nav>
-    </header>
+<?php include('../php/header.php'); ?>
 
     <!-- HERO À PROPOS -->
     <section class="about_hero">
@@ -28,7 +19,7 @@
         <div class="about_info">
             <h1>Zaganovic Zvezdan</h1>
             <p class="about_subtitle">Artisan BTP · Île-de-France</p>
-            <p class="about_bio">Passionné par les travaux manuels depuis toujours, je mets mon savoir-faire au service de vos projets avec rigueur et honnêteté. Basé en Île-de-France, j'interviens rapidement chez les particuliers comme les professionnels.</p>
+            <p class="about_bio">Je mets mon savoir-faire au service de vos projets avec rigueur et honnêteté. Basé en Île-de-France, j'interviens rapidement chez les particuliers comme les professionnels.</p>
         </div>
     </section>
 
@@ -109,18 +100,7 @@
         <a href="contact.html">Demander un devis</a>
     </div>
 
-    <footer>
-        <div class="footer_gauche">
-            <p>Adresse : 193 avenue Henri Barbusse</p>
-            <p>Tél : <a href="tel:+33676091120">06 76 09 11 20</a></p>
-            <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
-        </div>
-        <div class="footer_droite">
-            <a href="contact.html">Contact</a>
-            <a href="apropos.html">À propos</a>
-        </div>
-        <p class="footer_copyright">©2025 - Tous droits réservés</p>
-    </footer>
+    <?php include('../php/footer.php'); ?>
 
     <script src="../js/main.js"></script>
 </body>

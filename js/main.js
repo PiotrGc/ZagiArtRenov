@@ -11,3 +11,11 @@ if (document.getElementById('map')) {
         .bindPopup('Zagiart Renov — Paris & Île-de-France')
         .openPopup();
 }
+
+const message = document.getElementById('message_confirmation');
+
+if (message) {
+    setTimeout(function() {
+        message.style.display = 'none';
+    }, 3000);
+}

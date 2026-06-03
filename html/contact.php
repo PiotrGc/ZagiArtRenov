@@ -11,24 +11,28 @@
 </head>
 <body>
 
-    <header>
-        <nav>
-            <img src="../img/logo_ZAR.png" alt="Zagiart Renov">
-            <div class="nav_liens">
-                <a href="index.html">Accueil</a>
-                <a href="contact.html">Contact</a>
-                <a href="apropos.html">À propos</a>
-            </div>
-        </nav>
-    </header>
+    <?php include('../php/header.php'); ?>
 
     <section class="contact">
+
+        <?php if (isset($_GET['envoye'])): ?>
+            <p id="message_confirmation" class="message_succes">Votre message a bien été envoyé !</p>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['erreur'])): ?>
+            <p id="message_confirmation" class="message_erreur">Une erreur est survenue, veuillez réessayer.</p>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['temps'])): ?>
+            <p id="message_confirmation" class="message_erreur">Veuillez attendre avant d'envoyer un nouveau message.</p>
+        <?php endif; ?>
+
         <h1>Contactez-moi</h1>
         <p>Vous avez un projet ? Remplissez le formulaire ou contactez-moi directement.</p>
 
         <div class="contact_contenu">
 
-            <form action="" method="post" class="formulaire_devis">
+            <form action="../php/traitement.php" method="post" class="formulaire_devis">
                 <div class="form_groupe">
                     <label for="prenom">Prénom</label>
                     <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
@@ -75,18 +79,7 @@
         </div>
     </section>
 
-    <footer>
-        <div class="footer_gauche">
-            <p>Adresse : 193 avenue Henri Barbusse</p>
-            <p>Tél : <a href="tel:+33676091120">06 76 09 11 20</a></p>
-            <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
-        </div>
-        <div class="footer_droite">
-            <a href="contact.html">Contact</a>
-            <a href="apropos.html">À propos</a>
-        </div>
-        <p class="footer_copyright">©2025 - Tous droits réservés</p>
-    </footer>
+    <?php include('../php/footer.php'); ?>
 
     <script src="../js/main.js"></script>
 </body>
