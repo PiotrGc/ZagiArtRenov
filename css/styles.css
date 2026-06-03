@@ -182,18 +182,6 @@ nav img {
     line-height: 1.6;
 }
 
-.card_tag {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    font-size: 0.7rem;
-    background-color: #E8F0F8;
-    color: var(--couleur-primaire);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-}
-
 /* ===========================
    TÉMOIGNAGES
 =========================== */
@@ -316,6 +304,16 @@ nav img {
     display: flex;
     gap: 40px;
     align-items: flex-start;
+}
+
+.contact .message_succes {
+    color: green !important;
+    margin-bottom: 16px;
+}
+
+.contact .message_erreur {
+    color: red !important;
+    margin-bottom: 16px;
 }
 
 /* ===========================
