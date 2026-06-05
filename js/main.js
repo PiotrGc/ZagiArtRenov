@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function () {
+
 // ===========================
 // TOGGLE FORMULAIRE AVIS
 // ===========================
@@ -79,3 +81,5 @@ if (message) {
         setTimeout(function () { message.style.display = 'none'; }, 400);
     }, 4000);
 }
+
+}); // fin DOMContentLoaded

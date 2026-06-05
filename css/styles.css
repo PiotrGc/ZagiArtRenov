@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
 
 :root {
     --bleu:       #0F2640;
@@ -14,7 +14,7 @@
     --ombre:      0 4px 24px rgba(15,38,64,0.10);
     --ombre-md:   0 8px 40px rgba(15,38,64,0.14);
     --font-titre: 'Bebas Neue', sans-serif;
-    --font-corps: 'DM Sans', sans-serif;
+    --font-corps: 'Inter', sans-serif;
     --radius:     10px;
     --transition: 0.22s cubic-bezier(.4,0,.2,1);
 }
