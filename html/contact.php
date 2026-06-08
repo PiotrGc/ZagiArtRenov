@@ -13,6 +13,13 @@
 
     <?php include('../php/header.php'); ?>
 
+    <?php
+session_start();
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+?>
+
     <section class="contact">
 
         <?php if (isset($_GET['envoye'])): ?>
@@ -66,6 +73,7 @@
                 <div class="form_groupe">
                     <button type="submit">Envoyer ma demande</button>
                 </div>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             </form>
 
             <div class="contact_coordonnees">

@@ -1,0 +1,14 @@
+# Bloquer l'accès direct aux dossiers sensibles
+Options -Indexes
+
+# Bloquer l'accès au dossier vendor
+<DirectoryMatch "vendor">
+    Order Allow,Deny
+    Deny from all
+</DirectoryMatch>
+
+# Bloquer l'accès direct aux fichiers PHP dans /php sauf via include
+<FilesMatch "^(connexion|header|footer)\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
