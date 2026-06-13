@@ -97,7 +97,7 @@
     <div class="cta_bande">
         <h2>Prêt à démarrer votre projet ?</h2>
         <p>Contactez-moi pour un devis gratuit et sans engagement</p>
-        <a href="contact.html">Demander un devis</a>
+        <a href="contact.php">Demander un devis</a>
     </div>
 
     <?php include('../php/footer.php'); ?>

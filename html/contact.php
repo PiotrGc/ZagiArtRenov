@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,12 +13,10 @@
     <title>Contact - ZAR</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-
-    <?php include('../php/header.php'); ?>
 
     <section class="contact">
 
@@ -66,6 +71,7 @@
                 <div class="form_groupe">
                     <button type="submit">Envoyer ma demande</button>
                 </div>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             </form>
 
             <div class="contact_coordonnees">

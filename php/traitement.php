@@ -2,6 +2,11 @@
 
 session_start();
 
+if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+    header("Location: ../html/contact.php?erreur=1");
+    exit();
+}
+
 $temps_attente = 10800;
 
 if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente) {
@@ -28,22 +33,20 @@ require "../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+require '../php/config.php';
 
 try {
     $mail = new PHPMailer(true);
-
-    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
     $mail->isSMTP();
     $mail->SMTPAuth   = true;
     $mail->Host       = "smtp.gmail.com";
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
-    $mail->Username   = "grabiecpiotr07@gmail.com";
-    $mail->Password   = "«SUPPRIMÉ»";
+    $mail->Username   = MAIL_USER;
+    $mail->Password   = MAIL_PASS;
 
     $mail->setFrom($email, $prenom . ' ' . $nom);
-    $mail->addAddress("grabiecpiotr07@gmail.com");
+    $mail->addAddress(MAIL_DEST);
     $mail->addReplyTo($email, $prenom . ' ' . $nom);
 
     $corpsMessage  = "$nom $prenom\n";
