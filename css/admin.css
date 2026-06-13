@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --bleu:       #0F2640;
+    --bleu-mid:   #1B3A5C;
+    --bleu-light: #243F63;
+    --or:         #F4A825;
+    --or-dark:    #D4891A;
+    --fond:       #F5F3EE;
+    --blanc:      #FFFFFF;
+    --texte:      #1A1A1A;
+    --muted:      #6A6A72;
+    --border:     #DDD9D0;
+    --ombre:      0 4px 24px rgba(15,38,64,0.10);
+    --ombre-md:   0 8px 40px rgba(15,38,64,0.14);
+    --font-titre: 'Bebas Neue', sans-serif;
+    --font-corps: 'Inter', sans-serif;
+    --radius:     10px;
+    --transition: 0.22s cubic-bezier(.4,0,.2,1);
+}
+
+body {
+    background-color: var(--couleur-fond);
+    font-family: var(--font-corps);
+}
+
+/* ===========================
+   LOGIN
+=========================== */
+.admin_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.admin_login_card {
+    background: white;
+    border: 1px solid var(--couleur-border);
+    border-top: 4px solid var(--couleur-primaire);
+    border-radius: 10px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.admin_login_card h1 {
+    font-family: var(--font-titre);
+    font-size: 2rem;
+    color: var(--couleur-primaire);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.admin_login_card > p {
+    font-size: 0.9rem;
+    color: var(--couleur-muted);
+    margin-bottom: 24px;
+}
+
+/* ===========================
+   HEADER ADMIN
+=========================== */
+.admin_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--couleur-primaire);
+    padding: 16px 40px;
+}
+
+.admin_header h1 {
+    font-family: var(--font-titre);
+    font-size: 1.5rem;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.admin_logout {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 6px;
+}
+
+.admin_logout:hover {
+    color: white;
+    border-color: white;
+}
+
+/* ===========================
+   CONTENU ADMIN
+=========================== */
+.admin_contenu {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.admin_section {
+    background: white;
+    border: 1px solid var(--couleur-border);
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 32px;
+}
+
+.admin_section h2 {
+    font-family: var(--font-titre);
+    font-size: 1.5rem;
+    color: var(--couleur-primaire);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin_badge {
+    background-color: var(--couleur-secondaire);
+    color: var(--couleur-primaire);
+    font-family: var(--font-corps);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+.admin_badge_vert {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.admin_vide {
+    font-size: 0.9rem;
+    color: var(--couleur-muted);
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+.admin_table_wrapper {
+    overflow-x: auto;
+}
+
+.admin_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.admin_table thead {
+    background-color: var(--couleur-fond);
+}
+
+.admin_table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--couleur-primaire);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--couleur-border);
+}
+
+.admin_table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--couleur-border);
+    color: var(--couleur-texte);
+    vertical-align: top;
+}
+
+.admin_table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin_table tbody tr:hover {
+    background-color: var(--couleur-fond);
+}
+
+/* ===========================
+   BOUTONS ACTIONS
+=========================== */
+.admin_actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn_valider,
+.btn_supprimer,
+.btn_depublier {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn_valider {
+    background-color: #D4EDDA;
+    color: #155724;
+}
+
+.btn_valider:hover {
+    background-color: #C3E6CB;
+}
+
+.btn_supprimer {
+    background-color: #F8D7DA;
+    color: #721C24;
+}
+
+.btn_supprimer:hover {
+    background-color: #F5C6CB;
+}
+
+.btn_depublier {
+    background-color: #FFF3CD;
+    color: #856404;
+}
+
+.btn_depublier:hover {
+    background-color: #FFEEBA;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 768px) {
+    .admin_header {
+        padding: 16px 20px;
+    }
+    .admin_contenu {
+        padding: 0 20px;
+        margin: 24px auto;
+    }
+    .admin_section {
+        padding: 20px;
+    }
+}

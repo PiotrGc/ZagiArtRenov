@@ -33,24 +33,20 @@ require "../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+require '../php/config.php';
 
 try {
     $mail = new PHPMailer(true);
-
-    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
     $mail->isSMTP();
     $mail->SMTPAuth   = true;
     $mail->Host       = "smtp.gmail.com";
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    
-    require '../php/config.php';
-    $mail->Username = MAIL_USER;
-    $mail->Password = MAIL_PASS;
-    $mail->addAddress(MAIL_DEST);
+    $mail->Port       = 587;
+    $mail->Username   = MAIL_USER;
+    $mail->Password   = MAIL_PASS;
 
     $mail->setFrom($email, $prenom . ' ' . $nom);
-    $mail->addAddress("grabiecpiotr07@gmail.com");
+    $mail->addAddress(MAIL_DEST);
     $mail->addReplyTo($email, $prenom . ' ' . $nom);
 
     $corpsMessage  = "$nom $prenom\n";

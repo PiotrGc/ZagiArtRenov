@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: ../html/index.php');
+    exit();
+}
+
 include('../php/connexion.php');
 
 $nom         = trim($_POST['nom']         ?? '');
