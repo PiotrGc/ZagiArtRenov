@@ -16,6 +16,9 @@ if (empty($_SESSION['token'])) {
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
+
+<?php include('../php/header.php'); ?>
+
 <body>
 
     <section class="contact">
@@ -78,7 +81,7 @@ if (empty($_SESSION['token'])) {
                 <p>Téléphone : <a href="tel:+33676091120">06 76 09 11 20</a></p>
                 <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
                 <p>Zone d'intervention : Paris & Île-de-France</p>
-                <p>Horaires : Lun–Ven 8h–19h / Sam 9h–17h</p>
+                <p>Horaires : Lun–Sam 8h–17h + urgence Dim</p>
                 <div id="map"></div>
             </div>
 

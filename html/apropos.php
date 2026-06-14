@@ -86,10 +86,10 @@
     <section class="realisations">
         <h2>Quelques réalisations</h2>
         <div class="galerie">
-            <div class="galerie_item"><img src="../img/real1.jpg" alt="Réalisation électricité"></div>
-            <div class="galerie_item"><img src="../img/real2.jpg" alt="Réalisation plomberie"></div>
-            <div class="galerie_item"><img src="../img/real3.jpg" alt="Réalisation peinture"></div>
-            <div class="galerie_item"><img src="../img/real4.jpg" alt="Réalisation menuiserie"></div>
+            <div class="galerie_item"><img src="../img/chambre.jpg" alt="Réalisation"></div>
+            <div class="galerie_item"><img src="../img/cuisine.jpg" alt="Réalisation"></div>
+            <div class="galerie_item"><img src="../img/salle_de_bain.jpg" alt="Réalisation"></div>
+            <div class="galerie_item"><img src="../img/toilette.jpg" alt="Réalisation"></div>
         </div>
     </section>
 
