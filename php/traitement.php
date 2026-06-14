@@ -45,9 +45,9 @@ try {
     $mail->Username   = MAIL_USER;
     $mail->Password   = MAIL_PASS;
 
-    $mail->setFrom($email, $prenom . ' ' . $nom);
+    $mail->setFrom(MAIL_USER, 'Zagiart Renov');
     $mail->addAddress(MAIL_DEST);
-    $mail->addReplyTo($email, $prenom . ' ' . $nom);
+    $mail->addReplyTo($email, $prenom . ' ' . $nom); 
 
     $corpsMessage  = "$nom $prenom\n";
     $corpsMessage .= "$email\n";
