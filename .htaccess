@@ -1,19 +1,11 @@
-# Bloquer l'accès direct aux dossiers sensibles
+# Désactiver le listing de répertoires
 Options -Indexes
 
-# Bloquer l'accès au dossier vendor
-<DirectoryMatch "vendor">
-    Order Allow,Deny
-    Deny from all
-</DirectoryMatch>
+# Bloquer l'accès direct au dossier vendor
+RewriteEngine On
+RewriteRule ^vendor/ - [F,L]
 
-# Bloquer l'accès direct aux fichiers PHP dans /php sauf via include
-<FilesMatch "^(connexion|header|footer)\.php$">
-    Order Allow,Deny
-    Deny from all
-</FilesMatch>
-
-<FilesMatch "^(connexion|header|footer|config|traitement|traitement_avis|admin_traitement)\.php$">
-    Order Allow,Deny
-    Deny from all
+# Bloquer l'accès direct aux fichiers PHP sensibles uniquement
+<FilesMatch "^(connexion|config|traitement|traitement_avis|admin_traitement|admin)\.php$">
+    Require all denied
 </FilesMatch>
