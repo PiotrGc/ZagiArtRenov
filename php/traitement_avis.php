@@ -1,8 +1,26 @@
 <?php
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => !empty($_SERVER['HTTPS']),
+    'samesite' => 'Lax'
+]);
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../html/index.php');
+    exit();
+}
+
+// Protection CSRF : le token doit correspondre à celui généré pour ce visiteur
+if (!isset($_POST['token']) || !isset($_SESSION['token']) || $_POST['token'] !== $_SESSION['token']) {
+    header('Location: ../html/index.php?avis_erreur=1');
+    exit();
+}
+
+// Anti-spam : on limite à un avis toutes les 5 minutes par visiteur
+$temps_attente_avis = 300;
+if (isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $temps_attente_avis) {
+    header('Location: ../html/index.php?avis_erreur=1');
     exit();
 }
 
@@ -37,6 +55,8 @@ try {
         ':note'        => $note,
         ':commentaire' => $commentaire,
     ]);
+
+    $_SESSION['dernier_avis'] = time();
 
     header('Location: ../html/index.php?avis_envoye=1');
     exit;

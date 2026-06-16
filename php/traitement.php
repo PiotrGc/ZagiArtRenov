@@ -2,13 +2,12 @@
 
 session_set_cookie_params([
     'httponly' => true,
-    'secure'   => true,
+    'secure'   => !empty($_SERVER['HTTPS']),
     'samesite' => 'Lax'
 ]);
-
 session_start();
 
-if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+if (!isset($_POST['token']) || !isset($_SESSION['token']) || $_POST['token'] !== $_SESSION['token']) {
     header("Location: ../html/contact.php?erreur=1");
     exit();
 }
@@ -35,6 +34,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit();
 }
 
+// Sécurité : on vérifie que la prestation choisie fait bien partie des options proposées
+$prestations_autorisees = ["electricite", "plomberie", "peinture", "menuiserie"];
+if (!in_array($presta, $prestations_autorisees, true)) {
+    header("Location: ../html/contact.php?erreur=1");
+    exit();
+}
+
 require "../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -43,6 +49,7 @@ require '../php/config.php';
 
 try {
     $mail = new PHPMailer(true);
+    $mail->CharSet    = 'UTF-8';
     $mail->isSMTP();
     $mail->SMTPAuth   = true;
     $mail->Host       = "smtp.gmail.com";

@@ -1,3 +1,14 @@
+<?php
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => !empty($_SERVER['HTTPS']),
+    'samesite' => 'Lax'
+]);
+session_start();
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -148,6 +159,7 @@
                     <button type="button" id="btn_annuler_avis" class="btn_annuler">Annuler</button>
                     <button type="submit" class="btn_soumettre">Envoyer mon avis →</button>
                 </div>
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             </form>
 
         </div>
