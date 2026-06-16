@@ -1,11 +1,106 @@
-# Désactiver le listing de répertoires
+# ============================================================
+#  .htaccess — Zagiart Renov
+#  Chaque bloc est commenté pour t'expliquer à quoi il sert.
+#  Place ce fichier à la RACINE de ton hébergement (au même
+#  niveau que les dossiers css/, html/, img/, js/, php/, vendor/)
+#  et renomme-le en ".htaccess" (avec le point au début).
+# ============================================================
+
+
+# --- 1. Sécurité de base -------------------------------------
+
+# Empêche d'afficher la liste des fichiers d'un dossier qui
+# n'a pas d'index (ex: si quelqu'un tape /img/ dans son navigateur)
 Options -Indexes
 
-# Bloquer l'accès direct au dossier vendor
-RewriteEngine On
-RewriteRule ^vendor/ - [F,L]
+# Cache la version d'Apache dans les pages d'erreur
+ServerSignature Off
 
-# Bloquer l'accès direct aux fichiers PHP sensibles uniquement
-<FilesMatch "^(connexion|config|traitement|traitement_avis|admin_traitement|admin)\.php$">
+# Bloque l'accès direct au fichier .htaccess lui-même
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+
+# --- 2. Forcer le HTTPS ----------------------------------------
+RewriteEngine On
+
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+# --- 3. Bloquer les fichiers qui ne doivent JAMAIS être ouverts
+#        depuis un navigateur, car ils servent uniquement à être
+#        "inclus" par d'autres pages PHP (mots de passe, connexion
+#        à la base de données, header/footer) ------------------
+#
+# IMPORTANT : on ne bloque PAS admin.php, traitement.php,
+# traitement_avis.php ni admin_traitement.php : ce sont des pages
+# que le navigateur doit pouvoir appeler directement (connexion
+# admin, envoi des formulaires, boutons valider/supprimer).
+
+<FilesMatch "^(connexion|config|header|footer)\.php$">
     Require all denied
 </FilesMatch>
+
+# Bloque tout le dossier vendor/ (librairies Composer,
+# jamais appelées directement par un navigateur)
+RewriteCond %{REQUEST_URI} ^/vendor/ [NC]
+RewriteRule ^ - [F]
+
+# Bloque un éventuel dossier .git (historique Git) s'il est
+# présent par erreur sur le serveur
+RewriteCond %{REQUEST_URI} ^/\.git [NC]
+RewriteRule ^ - [F]
+
+# Bloque les fichiers sensibles qui ne doivent pas être en ligne
+# (ta sauvegarde SQL, fichiers de logs, etc.)
+<FilesMatch "\.(sql|log|env|bak|sh|ini)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^(composer\.json|composer\.lock|README\.md)$">
+    Require all denied
+</FilesMatch>
+
+
+# --- 4. Faire fonctionner le site depuis la racine du domaine --
+#
+# Tes pages (.php) sont dans le dossier /html, mais un visiteur
+# ne doit jamais avoir à taper "/html/" dans l'URL : il doit
+# pouvoir aller sur "tonsite.fr" ou "tonsite.fr/contact.php"
+# directement. Ces règles redirigent en interne (le visiteur ne
+# voit jamais "/html/" dans sa barre d'adresse).
+
+# 4a. La racine du site ( / ) charge html/index.php
+RewriteRule ^$ html/index.php [L]
+
+# 4b. Si le fichier ou dossier demandé existe réellement à la
+#     racine (ex: /css/styles.css, /img/logo.png, /php/traitement.php),
+#     on le sert tel quel, sans rien changer
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 4c. Sinon, si la page demandée existe dans /html (ex: contact.php,
+#     apropos.php, admin.php), on la charge depuis là discrètement
+RewriteCond %{DOCUMENT_ROOT}/html/$1 -f
+RewriteRule ^(.+)$ html/$1 [L]
+
+
+# --- 5. En-têtes de sécurité supplémentaires --------------------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+
+# --- 6. Ne pas afficher les erreurs PHP aux visiteurs -----------
+# (ne fonctionne que si ton hébergeur utilise mod_php ; si ça ne
+# marche pas, configure "display_errors = Off" depuis le panneau
+# d'administration de ton hébergeur, dans les réglages PHP)
+<IfModule mod_php.c>
+    php_flag display_errors off
+    php_value error_reporting 0
+</IfModule>

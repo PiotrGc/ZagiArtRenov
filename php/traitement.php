@@ -1,5 +1,11 @@
 <?php
 
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => true,
+    'samesite' => 'Lax'
+]);
+
 session_start();
 
 if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
@@ -7,7 +13,7 @@ if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
     exit();
 }
 
-$temps_attente = 1;
+$temps_attente = 86400;
 
 if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente) {
     header("Location: ../html/contact.php?temps=1");

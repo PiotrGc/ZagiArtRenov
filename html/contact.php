@@ -1,4 +1,9 @@
 <?php
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => !empty($_SERVER['HTTPS']),
+    'samesite' => 'Lax'
+]);
 session_start();
 if (empty($_SESSION['token'])) {
     $_SESSION['token'] = bin2hex(random_bytes(32));
@@ -17,9 +22,9 @@ if (empty($_SESSION['token'])) {
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
-<?php include('../php/header.php'); ?>
-
 <body>
+    
+<?php include('../php/header.php'); ?>
 
     <section class="contact">
 
