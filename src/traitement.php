@@ -8,14 +8,14 @@ session_set_cookie_params([
 session_start();
 
 if (!isset($_POST['token']) || !isset($_SESSION['token']) || $_POST['token'] !== $_SESSION['token']) {
-    header("Location: ../html/contact.php?erreur=1");
+    header("Location: /contact.php?erreur=1");
     exit();
 }
 
 $temps_attente = 86400;
 
 if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente) {
-    header("Location: ../html/contact.php?temps=1");
+    header("Location: /contact.php?temps=1");
     exit();
 }
 
@@ -30,14 +30,14 @@ $presta      = $_POST["presta"];
 $description = $_POST["description"];
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: ../html/contact.php?erreur=1");
+    header("Location: /contact.php?erreur=1");
     exit();
 }
 
 // Sécurité : on vérifie que la prestation choisie fait bien partie des options proposées
 $prestations_autorisees = ["electricite", "plomberie", "peinture", "menuiserie"];
 if (!in_array($presta, $prestations_autorisees, true)) {
-    header("Location: ../html/contact.php?erreur=1");
+    header("Location: /contact.php?erreur=1");
     exit();
 }
 
@@ -74,10 +74,10 @@ try {
 
     $_SESSION['dernier_envoi'] = time();
 
-    header("Location: ../html/contact.php?envoye=1");
+    header("Location: /contact.php?envoye=1");
 
 } catch (Exception $e) {
-    header("Location: ../html/contact.php?erreur=1");
+    header("Location: /contact.php?erreur=1");
 }
 
 exit();

@@ -7,20 +7,20 @@ session_set_cookie_params([
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../html/index.php');
+    header('Location: /index.php');
     exit();
 }
 
 // Protection CSRF : le token doit correspondre à celui généré pour ce visiteur
 if (!isset($_POST['token']) || !isset($_SESSION['token']) || $_POST['token'] !== $_SESSION['token']) {
-    header('Location: ../html/index.php?avis_erreur=1');
+    header('Location: /index.php?avis_erreur=1');
     exit();
 }
 
 // Anti-spam : on limite à un avis toutes les 5 minutes par visiteur
 $temps_attente_avis = 300;
 if (isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $temps_attente_avis) {
-    header('Location: ../html/index.php?avis_erreur=1');
+    header('Location: /index.php?avis_erreur=1');
     exit();
 }
 
@@ -33,13 +33,13 @@ $commentaire = trim($_POST['commentaire'] ?? '');
 
 // Validation des champs obligatoires
 if (!$nom || !$ville || $note < 1 || $note > 5 || !$commentaire) {
-    header('Location: ../html/index.php?avis_erreur=1');
+    header('Location: /index.php?avis_erreur=1');
     exit;
 }
 
 // Sécurité : longueurs maximales
 if (strlen($nom) > 100 || strlen($ville) > 100 || strlen($commentaire) > 500) {
-    header('Location: ../html/index.php?avis_erreur=1');
+    header('Location: /index.php?avis_erreur=1');
     exit;
 }
 
@@ -58,10 +58,10 @@ try {
 
     $_SESSION['dernier_avis'] = time();
 
-    header('Location: ../html/index.php?avis_envoye=1');
+    header('Location: /index.php?avis_envoye=1');
     exit;
 
 } catch (PDOException $e) {
-    header('Location: ../html/index.php?avis_erreur=1');
+    header('Location: /index.php?avis_erreur=1');
     exit;
 }

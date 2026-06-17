@@ -7,12 +7,12 @@ session_set_cookie_params([
 session_start();
 
 if (!isset($_SESSION['admin'])) {
-    header("Location: ../html/admin.php");
+    header("Location: /admin.php");
     exit();
 }
 
 if (!isset($_GET['action']) || !isset($_GET['id'])) {
-    header("Location: ../html/admin.php");
+    header("Location: /admin.php");
     exit();
 }
 
@@ -42,6 +42,6 @@ try {
     // erreur silencieuse
 }
 
-header("Location: ../html/admin.php");
+header("Location: /admin.php");
 exit();
 ?>
