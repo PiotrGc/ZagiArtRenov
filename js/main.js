@@ -83,3 +83,105 @@ if (message) {
 }
 
 }); // fin DOMContentLoaded
+
+
+// ===========================
+// MENU BURGER MOBILE
+// ===========================
+const navBurger = document.getElementById('nav_burger');
+const navLiens  = document.getElementById('nav_liens');
+
+if (navBurger && navLiens) {
+    navBurger.addEventListener('click', function () {
+        const isOpen = navLiens.classList.toggle('active');
+        navBurger.classList.toggle('active');
+        navBurger.setAttribute('aria-expanded', isOpen);
+    });
+}
+
+// ===========================
+// CARROUSEL RÉALISATIONS + LIGHTBOX
+// ===========================
+(function () {
+    const track           = document.querySelector('.galerie_track');
+    const lightbox         = document.getElementById('lightbox');
+    const lightboxImg      = document.getElementById('lightbox_img');
+    const lightboxFermer   = document.getElementById('lightbox_fermer');
+    const items             = document.querySelectorAll('.galerie_item');
+    const btnPrev           = document.querySelector('.galerie_prev');
+    const btnNext           = document.querySelector('.galerie_next');
+
+    if (!track || items.length === 0) return; // pas de carrousel sur cette page
+
+    let index = 0;
+
+    function getGap() {
+        return parseFloat(getComputedStyle(track).gap) || 0;
+    }
+
+    function getVisibleCount() {
+        const viewportWidth = track.parentElement.getBoundingClientRect().width;
+        const itemWidth = items[0].getBoundingClientRect().width;
+        const gap = getGap();
+        return Math.max(1, Math.round((viewportWidth + gap) / (itemWidth + gap)));
+    }
+
+    function update() {
+        const visibles = getVisibleCount();
+        const maxIndex = Math.max(0, items.length - visibles);
+        index = Math.min(index, maxIndex);
+
+        const itemWidth = items[0].getBoundingClientRect().width;
+        const gap = getGap();
+        track.style.transform = `translateX(-${index * (itemWidth + gap)}px)`;
+
+        if (btnPrev) btnPrev.disabled = index === 0;
+        if (btnNext) btnNext.disabled = index >= maxIndex;
+    }
+
+    if (btnPrev) {
+        btnPrev.addEventListener('click', () => {
+            index = Math.max(0, index - 1);
+            update();
+        });
+    }
+
+    if (btnNext) {
+        btnNext.addEventListener('click', () => {
+            const maxIndex = Math.max(0, items.length - getVisibleCount());
+            index = Math.min(maxIndex, index + 1);
+            update();
+        });
+    }
+
+    window.addEventListener('resize', update);
+    update();
+
+    // Lightbox
+    if (lightbox && lightboxImg && lightboxFermer) {
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightboxFermer.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+            }
+        });
+    }
+})();

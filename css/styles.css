@@ -51,8 +51,6 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 14px 48px;
-    max-width: 1400px;
-    margin: 0 auto;
 }
 
 nav img {
@@ -98,6 +96,32 @@ nav img {
 .nav_liens a:hover::after {
     width: 100%;
 }
+
+/* Bouton burger (caché sur desktop) */
+.nav_burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 101;
+}
+
+.nav_burger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--blanc);
+    border-radius: 2px;
+    transition: all var(--transition);
+}
+
+.nav_burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav_burger.active span:nth-child(2) { opacity: 0; }
+.nav_burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ===========================
    HERO
@@ -1068,6 +1092,114 @@ nav img {
 }
 
 /* ===========================
+   CARROUSEL RÉALISATIONS
+=========================== */
+.galerie_carousel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.galerie_viewport {
+    overflow: hidden;
+    flex: 1;
+}
+
+.galerie_track {
+    display: flex;
+    gap: 16px;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+.galerie_item {
+    flex: 0 0 calc((100% - 32px) / 3);
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: var(--ombre);
+    cursor: pointer;
+}
+
+.galerie_item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+.galerie_item:hover img {
+    transform: scale(1.06);
+}
+
+.galerie_prev,
+.galerie_next {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--blanc);
+    color: var(--bleu);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--ombre);
+    transition: all var(--transition);
+}
+
+.galerie_prev:hover,
+.galerie_next:hover {
+    background: var(--bleu);
+    color: var(--blanc);
+}
+
+.galerie_prev:disabled,
+.galerie_next:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* ===========================
+   LIGHTBOX
+=========================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,38,64,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox_fermer {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    background: none;
+    border: none;
+    color: var(--blanc);
+    font-size: 2.2rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* ===========================
    FOOTER
 =========================== */
 footer {
@@ -1165,7 +1297,7 @@ footer {
 
     .avis_form_row { grid-template-columns: 1fr 1fr; }
 
-    .galerie { grid-template-columns: repeat(2, 1fr); }
+    .galerie_item { flex: 0 0 calc((100% - 16px) / 2); }
 
     .about_hero { padding: 48px 36px; }
 
@@ -1180,14 +1312,28 @@ footer {
 =========================== */
 @media (max-width: 768px) {
 
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 16px 20px;
-    }
+nav {
+    padding: 14px 20px;
+    position: relative;
+}
 
-    .nav_liens { flex-direction: column; gap: 12px; }
+.nav_burger { display: flex; }
+
+.nav_liens {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bleu);
+    padding: 16px 20px;
+    gap: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    z-index: 100;
+}
+
+.nav_liens.active { display: flex; }
 
     .hero { padding: 48px 24px 56px; }
     .hero h1 { font-size: 2.8rem; }
@@ -1211,7 +1357,8 @@ footer {
     .avis_form_row { grid-template-columns: 1fr; }
     .cards_grid { grid-template-columns: 1fr; }
     .engagements_grid { grid-template-columns: 1fr; }
-    .galerie { grid-template-columns: repeat(2, 1fr); }
+    .galerie_item { flex: 0 0 100%; }
+    .galerie_prev, .galerie_next { width: 36px; height: 36px; font-size: 1.1rem; }
 
     .about_hero {
         flex-direction: column;

@@ -82,18 +82,27 @@
         </div>
     </section>
 
-    <!-- RÉALISATIONS -->
-    <section class="realisations">
-        <h2>Quelques réalisations</h2>
-        <div class="galerie">
-            <div class="galerie_item"><img src="../img/chambre.jpg" alt="Réalisation première chambre"></div>
-            <div class="galerie_item"><img src="../img/chambre2.jpg" alt="Réalisation deuxième chambre"></div>
-            <div class="galerie_item"><img src="../img/cuisine.jpg" alt="Réalisation cuisine"></div>
-            <div class="galerie_item"><img src="../img/salle_de_bain.jpg" alt="Réalisation salle de bain"></div>
-            <div class="galerie_item"><img src="../img/toilette.jpg" alt="Réalisation toilette"></div>
-            <div class="galerie_item"><img src="../img/couloir.jpg" alt="Réalisation couloir"></div>
+<!-- RÉALISATIONS -->
+<section class="realisations">
+    <h2>Quelques réalisations</h2>
+
+    <div class="galerie_carousel">
+        <button class="galerie_prev" aria-label="Image précédente">‹</button>
+
+        <div class="galerie_viewport">
+            <div class="galerie_track">
+                <div class="galerie_item"><img src="../img/chambre.jpg" alt="Réalisation première chambre"></div>
+                <div class="galerie_item"><img src="../img/chambre2.jpg" alt="Réalisation deuxième chambre"></div>
+                <div class="galerie_item"><img src="../img/cuisine.jpg" alt="Réalisation cuisine"></div>
+                <div class="galerie_item"><img src="../img/salle_de_bain.jpg" alt="Réalisation salle de bain"></div>
+                <div class="galerie_item"><img src="../img/toilette.jpg" alt="Réalisation toilette"></div>
+                <div class="galerie_item"><img src="../img/couloir.jpg" alt="Réalisation couloir"></div>
+            </div>
         </div>
-    </section>
+
+        <button class="galerie_next" aria-label="Image suivante">›</button>
+    </div>
+</section>
 
     <!-- BANDE CTA -->
     <div class="cta_bande">
@@ -101,6 +110,12 @@
         <p>Contactez-moi pour un devis gratuit et sans engagement</p>
         <a href="contact.php">Demander un devis</a>
     </div>
+
+    <!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox_fermer" id="lightbox_fermer" aria-label="Fermer">×</button>
+    <img src="" alt="" id="lightbox_img">
+</div>
 
     <?php include('../php/footer.php'); ?>
 
