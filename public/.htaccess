@@ -6,6 +6,17 @@ ServerSignature Off
 </Files>
 
 RewriteEngine On
+
+# Rediriger proprement les anciennes URLs en .php vers la version sans extension
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.php[\ ?] [NC]
+RewriteRule ^(.*)\.php$ /$1 [R=301,L]
+
+# Servir le bon fichier .php en interne quand l'URL n'a pas d'extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# (ton bloc existant pour forcer le HTTPS reste après, inchangé)
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
