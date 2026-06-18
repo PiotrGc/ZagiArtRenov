@@ -1,16 +1,21 @@
 <?php
 
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => !empty($_SERVER['HTTPS']),
+    'samesite' => 'Lax'
+]);
 session_start();
 
-if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
-    header("Location: ../html/contact.php?erreur=1");
+if (!isset($_POST['token']) || !isset($_SESSION['token']) || $_POST['token'] !== $_SESSION['token']) {
+    header("Location: /contact.php?erreur=1");
     exit();
 }
 
-$temps_attente = 10800;
+$temps_attente = 86400;
 
 if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente) {
-    header("Location: ../html/contact.php?temps=1");
+    header("Location: /contact.php?temps=1");
     exit();
 }
 
@@ -25,7 +30,13 @@ $presta      = $_POST["presta"];
 $description = $_POST["description"];
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: ../html/contact.php?erreur=1");
+    header("Location: /contact.php?erreur=1");
+    exit();
+}
+
+$prestations_autorisees = ["electricite", "plomberie", "peinture", "menuiserie"];
+if (!in_array($presta, $prestations_autorisees, true)) {
+    header("Location: /contact.php?erreur=1");
     exit();
 }
 
@@ -33,10 +44,11 @@ require "../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-require '../php/config.php';
+require '../config/config.php';
 
 try {
     $mail = new PHPMailer(true);
+    $mail->CharSet    = 'UTF-8';
     $mail->isSMTP();
     $mail->SMTPAuth   = true;
     $mail->Host       = "smtp.gmail.com";
@@ -45,9 +57,9 @@ try {
     $mail->Username   = MAIL_USER;
     $mail->Password   = MAIL_PASS;
 
-    $mail->setFrom($email, $prenom . ' ' . $nom);
+    $mail->setFrom(MAIL_USER, 'Zagiart Renov');
     $mail->addAddress(MAIL_DEST);
-    $mail->addReplyTo($email, $prenom . ' ' . $nom);
+    $mail->addReplyTo($email, $prenom . ' ' . $nom); 
 
     $corpsMessage  = "$nom $prenom\n";
     $corpsMessage .= "$email\n";
@@ -61,10 +73,10 @@ try {
 
     $_SESSION['dernier_envoi'] = time();
 
-    header("Location: ../html/contact.php?envoye=1");
+    header("Location: /contact.php?envoye=1");
 
 } catch (Exception $e) {
-    header("Location: ../html/contact.php?erreur=1");
+    header("Location: /contact.php?erreur=1");
 }
 
 exit();

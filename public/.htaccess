@@ -1,0 +1,32 @@
+Options -Indexes
+ServerSignature Off
+
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+RewriteEngine On
+
+# Rediriger proprement les anciennes URLs en .php vers la version sans extension
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.php[\ ?] [NC]
+RewriteRule ^(.*)\.php$ /$1 [R=301,L]
+
+# Servir le bon fichier .php en interne quand l'URL n'a pas d'extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# (ton bloc existant pour forcer le HTTPS reste après, inchangé)
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_php.c>
+    php_flag display_errors off
+    php_value error_reporting 0
+</IfModule>

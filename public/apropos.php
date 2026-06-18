@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>À propos - ZAR</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<?php include('../php/header.php'); ?>
+<?php include('../templates/header.php'); ?>
 
     <!-- HERO À PROPOS -->
     <section class="about_hero">
         <div class="about_photo">
-            <img src="../img/photo_profil.jpg" alt="Photo de profil">
+            <img src="img/photo_profil.jpg" alt="Photo de profil">
         </div>
         <div class="about_info">
             <h1>Zaganovic Zvezdan</h1>
@@ -82,16 +82,27 @@
         </div>
     </section>
 
-    <!-- RÉALISATIONS -->
-    <section class="realisations">
-        <h2>Quelques réalisations</h2>
-        <div class="galerie">
-            <div class="galerie_item"><img src="../img/real1.jpg" alt="Réalisation électricité"></div>
-            <div class="galerie_item"><img src="../img/real2.jpg" alt="Réalisation plomberie"></div>
-            <div class="galerie_item"><img src="../img/real3.jpg" alt="Réalisation peinture"></div>
-            <div class="galerie_item"><img src="../img/real4.jpg" alt="Réalisation menuiserie"></div>
+<!-- RÉALISATIONS -->
+<section class="realisations">
+    <h2>Quelques réalisations</h2>
+
+    <div class="galerie_carousel">
+        <button class="galerie_prev" aria-label="Image précédente">‹</button>
+
+        <div class="galerie_viewport">
+            <div class="galerie_track">
+                <div class="galerie_item"><img src="img/chambre.jpg" alt="Réalisation première chambre"></div>
+                <div class="galerie_item"><img src="img/chambre2.jpg" alt="Réalisation deuxième chambre"></div>
+                <div class="galerie_item"><img src="img/cuisine.jpg" alt="Réalisation cuisine"></div>
+                <div class="galerie_item"><img src="img/salle_de_bain.jpg" alt="Réalisation salle de bain"></div>
+                <div class="galerie_item"><img src="img/toilette.jpg" alt="Réalisation toilette"></div>
+                <div class="galerie_item"><img src="img/couloir.jpg" alt="Réalisation couloir"></div>
+            </div>
         </div>
-    </section>
+
+        <button class="galerie_next" aria-label="Image suivante">›</button>
+    </div>
+</section>
 
     <!-- BANDE CTA -->
     <div class="cta_bande">
@@ -100,8 +111,14 @@
         <a href="contact.php">Demander un devis</a>
     </div>
 
-    <?php include('../php/footer.php'); ?>
+    <!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox_fermer" id="lightbox_fermer" aria-label="Fermer">×</button>
+    <img src="" alt="" id="lightbox_img">
+</div>
 
-    <script src="../js/main.js"></script>
+    <?php include('../templates/footer.php'); ?>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-    --bleu:       #0F2640;
-    --bleu-mid:   #1B3A5C;
-    --bleu-light: #243F63;
-    --or:         #F4A825;
-    --or-dark:    #D4891A;
-    --fond:       #F5F3EE;
-    --blanc:      #FFFFFF;
-    --texte:      #1A1A1A;
-    --muted:      #6A6A72;
-    --border:     #DDD9D0;
+    --couleur-primaire:   #0F2640;
+    --bleu-mid:           #1B3A5C;
+    --bleu-light:         #243F63;
+    --couleur-secondaire: #F4A825;
+    --or-dark:            #D4891A;
+    --couleur-fond:       #F5F3EE;
+    --blanc:              #FFFFFF;
+    --couleur-texte:      #1A1A1A;
+    --couleur-muted:      #6A6A72;
+    --couleur-border:     #DDD9D0;
     --ombre:      0 4px 24px rgba(15,38,64,0.10);
     --ombre-md:   0 8px 40px rgba(15,38,64,0.14);
     --font-titre: 'Bebas Neue', sans-serif;

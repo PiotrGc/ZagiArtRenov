@@ -1,4 +1,9 @@
 <?php
+session_set_cookie_params([
+    'httponly' => true,
+    'secure'   => !empty($_SERVER['HTTPS']),
+    'samesite' => 'Lax'
+]);
 session_start();
 if (empty($_SESSION['token'])) {
     $_SESSION['token'] = bin2hex(random_bytes(32));
@@ -12,11 +17,14 @@ if (empty($_SESSION['token'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact - ZAR</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <link rel="stylesheet" href="../css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
+
 <body>
+
+<?php include('../templates/header.php'); ?>
 
     <section class="contact">
 
@@ -37,7 +45,7 @@ if (empty($_SESSION['token'])) {
 
         <div class="contact_contenu">
 
-            <form action="../php/traitement.php" method="post" class="formulaire_devis">
+            <form action="traitement.php" method="post" class="formulaire_devis">
                 <div class="form_groupe">
                     <label for="prenom">Prénom</label>
                     <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
@@ -78,15 +86,15 @@ if (empty($_SESSION['token'])) {
                 <p>Téléphone : <a href="tel:+33676091120">06 76 09 11 20</a></p>
                 <p>Email : <a href="mailto:zagiartrenov@gmail.com">zagiartrenov@gmail.com</a></p>
                 <p>Zone d'intervention : Paris & Île-de-France</p>
-                <p>Horaires : Lun–Ven 8h–19h / Sam 9h–17h</p>
+                <p>Horaires : Lun–Sam 8h–17h + urgence Dim</p>
                 <div id="map"></div>
             </div>
 
         </div>
     </section>
 
-    <?php include('../php/footer.php'); ?>
+    <?php include('../templates/footer.php'); ?>
 
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
