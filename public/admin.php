@@ -8,7 +8,7 @@ session_start();
 
 // Traitement de la connexion
 if (isset($_POST['password'])) {
-    require '../php/config.php';
+    require '../config/config.php';
     if (password_verify($_POST['password'], ADMIN_PASS)) {
         $_SESSION['admin'] = true;
         header("Location: admin.php");
@@ -34,7 +34,7 @@ if (!isset($_SESSION['admin'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - ZAR</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['admin'])) {
 }
 
 // Si connecté — charger la connexion DB
-require '../php/connexion.php';
+require '../config/connexion.php';
 
 // Récupérer les avis en attente
 $stmt_attente = $conn->query("SELECT * FROM avis WHERE valide = 0 ORDER BY date DESC");
@@ -79,8 +79,8 @@ $avis_publies = $stmt_publies->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - ZAR</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -122,8 +122,8 @@ $avis_publies = $stmt_publies->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo htmlspecialchars($avis['commentaire']); ?></td>
                                 <td><?php echo date('d/m/Y H:i', strtotime($avis['date'])); ?></td>
                                 <td class="admin_actions">
-                                    <a href="php/admin_traitement.php?action=valider&id=<?php echo $avis['id']; ?>" class="btn_valider">Valider</a>
-                                    <a href="php/admin_traitement.php?action=supprimer&id=<?php echo $avis['id']; ?>" class="btn_supprimer" onclick="return confirm('Supprimer cet avis ?')">Supprimer</a>
+                                    <a href="admin_traitement.php?action=valider&id=<?php echo $avis['id']; ?>" class="btn_valider">Valider</a>
+                                    <a href="admin_traitement.php?action=supprimer&id=<?php echo $avis['id']; ?>" class="btn_supprimer" onclick="return confirm('Supprimer cet avis ?')">Supprimer</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -163,8 +163,8 @@ $avis_publies = $stmt_publies->fetchAll(PDO::FETCH_ASSOC);
                                 <td><?php echo htmlspecialchars($avis['commentaire']); ?></td>
                                 <td><?php echo date('d/m/Y H:i', strtotime($avis['date'])); ?></td>
                                 <td class="admin_actions">
-                                    <a href="php/admin_traitement.php?action=depublier&id=<?php echo $avis['id']; ?>" class="btn_depublier">Dépublier</a>
-                                    <a href="php/admin_traitement.php?action=supprimer&id=<?php echo $avis['id']; ?>" class="btn_supprimer" onclick="return confirm('Supprimer cet avis ?')">Supprimer</a>
+                                    <a href="admin_traitement.php?action=depublier&id=<?php echo $avis['id']; ?>" class="btn_depublier">Dépublier</a>
+                                    <a href="admin_traitement.php?action=supprimer&id=<?php echo $avis['id']; ?>" class="btn_supprimer" onclick="return confirm('Supprimer cet avis ?')">Supprimer</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

@@ -1,4 +1,4 @@
-php/config.php
-php/connexion.php
-zagiartrenov.sql
+config/config.php
+config/connexion.php
+database.sql
 /vendor/

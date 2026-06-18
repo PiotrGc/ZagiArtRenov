@@ -34,7 +34,6 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit();
 }
 
-// Sécurité : on vérifie que la prestation choisie fait bien partie des options proposées
 $prestations_autorisees = ["electricite", "plomberie", "peinture", "menuiserie"];
 if (!in_array($presta, $prestations_autorisees, true)) {
     header("Location: /contact.php?erreur=1");
@@ -45,7 +44,7 @@ require "../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-require '../php/config.php';
+require '../config/config.php';
 
 try {
     $mail = new PHPMailer(true);

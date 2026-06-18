@@ -17,14 +17,14 @@ if (empty($_SESSION['token'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact - ZAR</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 
 <body>
-    
-<?php include('../php/header.php'); ?>
+
+<?php include('../templates/header.php'); ?>
 
     <section class="contact">
 
@@ -45,7 +45,7 @@ if (empty($_SESSION['token'])) {
 
         <div class="contact_contenu">
 
-            <form action="../php/traitement.php" method="post" class="formulaire_devis">
+            <form action="traitement.php" method="post" class="formulaire_devis">
                 <div class="form_groupe">
                     <label for="prenom">Prénom</label>
                     <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
@@ -93,8 +93,8 @@ if (empty($_SESSION['token'])) {
         </div>
     </section>
 
-    <?php include('../php/footer.php'); ?>
+    <?php include('../templates/footer.php'); ?>
 
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

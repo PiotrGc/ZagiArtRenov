@@ -16,7 +16,7 @@ if (!isset($_GET['action']) || !isset($_GET['id'])) {
     exit();
 }
 
-require '../php/connexion.php';
+require '../config/connexion.php';
 
 $id     = (int)$_GET['id'];
 $action = $_GET['action'];

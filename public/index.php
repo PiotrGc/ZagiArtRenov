@@ -15,7 +15,7 @@ if (empty($_SESSION['token'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Accueil - ZAR</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body
@@ -23,7 +23,7 @@ if (empty($_SESSION['token'])) {
     data-avis-erreur="<?php echo isset($_GET['avis_erreur'])  ? '1' : '0'; ?>"
 >
 
-<?php include('../php/header.php'); ?>
+<?php include('../templates/header.php'); ?>
 
     <!-- HERO -->
     <section class="hero">
@@ -82,7 +82,7 @@ if (empty($_SESSION['token'])) {
         <!-- Affichage des avis -->
         <div class="temoignages_grid">
             <?php
-            include('../php/connexion.php');
+            include('../config/connexion.php');
             $stmt = $conn->query("SELECT * FROM avis WHERE valide = 1 ORDER BY date DESC");
             $count = 0;
             while ($avis = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -125,7 +125,7 @@ if (empty($_SESSION['token'])) {
                 <p class="message_erreur">Une erreur est survenue, veuillez réessayer.</p>
             <?php endif; ?>
 
-            <form action="../php/traitement_avis.php" method="post">
+            <form action="traitement_avis.php" method="post">
                 <div class="avis_form_row">
                     <div class="form_groupe">
                         <label for="avis_nom">Nom</label>
@@ -173,8 +173,8 @@ if (empty($_SESSION['token'])) {
         <a href="contact.php">Nous contacter →</a>
     </div>
 
-<?php include('../php/footer.php'); ?>
+<?php include('../templates/footer.php'); ?>
 
-<script src="../js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

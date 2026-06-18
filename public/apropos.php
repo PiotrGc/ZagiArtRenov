@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>À propos - ZAR</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<?php include('../php/header.php'); ?>
+<?php include('../templates/header.php'); ?>
 
     <!-- HERO À PROPOS -->
     <section class="about_hero">
         <div class="about_photo">
-            <img src="../img/photo_profil.jpg" alt="Photo de profil">
+            <img src="img/photo_profil.jpg" alt="Photo de profil">
         </div>
         <div class="about_info">
             <h1>Zaganovic Zvezdan</h1>
@@ -91,12 +91,12 @@
 
         <div class="galerie_viewport">
             <div class="galerie_track">
-                <div class="galerie_item"><img src="../img/chambre.jpg" alt="Réalisation première chambre"></div>
-                <div class="galerie_item"><img src="../img/chambre2.jpg" alt="Réalisation deuxième chambre"></div>
-                <div class="galerie_item"><img src="../img/cuisine.jpg" alt="Réalisation cuisine"></div>
-                <div class="galerie_item"><img src="../img/salle_de_bain.jpg" alt="Réalisation salle de bain"></div>
-                <div class="galerie_item"><img src="../img/toilette.jpg" alt="Réalisation toilette"></div>
-                <div class="galerie_item"><img src="../img/couloir.jpg" alt="Réalisation couloir"></div>
+                <div class="galerie_item"><img src="img/chambre.jpg" alt="Réalisation première chambre"></div>
+                <div class="galerie_item"><img src="img/chambre2.jpg" alt="Réalisation deuxième chambre"></div>
+                <div class="galerie_item"><img src="img/cuisine.jpg" alt="Réalisation cuisine"></div>
+                <div class="galerie_item"><img src="img/salle_de_bain.jpg" alt="Réalisation salle de bain"></div>
+                <div class="galerie_item"><img src="img/toilette.jpg" alt="Réalisation toilette"></div>
+                <div class="galerie_item"><img src="img/couloir.jpg" alt="Réalisation couloir"></div>
             </div>
         </div>
 
@@ -117,8 +117,8 @@
     <img src="" alt="" id="lightbox_img">
 </div>
 
-    <?php include('../php/footer.php'); ?>
+    <?php include('../templates/footer.php'); ?>
 
-    <script src="../js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
