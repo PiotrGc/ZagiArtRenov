@@ -11,15 +11,20 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-if (!isset($_GET['action']) || !isset($_GET['id'])) {
+// Actions en POST uniquement + jeton CSRF : un lien piégé ouvert par l'admin
+// ne peut plus valider ou supprimer un avis à son insu.
+if ($_SERVER['REQUEST_METHOD'] !== 'POST'
+    || !isset($_POST['action'], $_POST['id'], $_POST['token'])
+    || !is_string($_POST['token'])
+    || !hash_equals($_SESSION['token'] ?? '', $_POST['token'])) {
     header("Location: /admin.php");
     exit();
 }
 
 require '../config/connexion.php';
 
-$id     = (int)$_GET['id'];
-$action = $_GET['action'];
+$id     = (int)$_POST['id'];
+$action = $_POST['action'];
 
 try {
     switch ($action) {
@@ -39,9 +44,8 @@ try {
             break;
     }
 } catch (PDOException $e) {
-    // erreur silencieuse
+    error_log('Erreur action admin avis : ' . $e->getMessage());
 }
 
 header("Location: /admin.php");
 exit();
-?>

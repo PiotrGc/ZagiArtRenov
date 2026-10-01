@@ -11,19 +11,26 @@ const compteur   = document.getElementById('compteur_actuel');
 
 if (btnToggle && formulaire) {
 
-    function ouvrirFormulaire() {
-        formulaire.style.display = 'block';
-        btnToggle.textContent = '— Fermer';
+    function ouvrirFormulaire(focusChamp) {
+        formulaire.hidden = false;
+        btnToggle.textContent = 'Fermer le formulaire';
+        btnToggle.setAttribute('aria-expanded', 'true');
         formulaire.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Place le focus dans le formulaire pour les utilisateurs clavier / lecteur d'écran
+        if (focusChamp) {
+            document.getElementById('avis_nom').focus({ preventScroll: true });
+        }
     }
 
     function fermerFormulaire() {
-        formulaire.style.display = 'none';
-        btnToggle.textContent = '+ Laisser un avis';
+        formulaire.hidden = true;
+        btnToggle.textContent = 'Laisser un avis';
+        btnToggle.setAttribute('aria-expanded', 'false');
+        btnToggle.focus();
     }
 
     btnToggle.addEventListener('click', function () {
-        formulaire.style.display === 'none' ? ouvrirFormulaire() : fermerFormulaire();
+        formulaire.hidden ? ouvrirFormulaire(true) : fermerFormulaire();
     });
 
     if (btnAnnuler) {
@@ -33,7 +40,7 @@ if (btnToggle && formulaire) {
     // Ouvrir automatiquement après soumission (paramètre GET injecté en data attribute)
     const body = document.body;
     if (body.dataset.avisEnvoye === '1' || body.dataset.avisErreur === '1') {
-        ouvrirFormulaire();
+        ouvrirFormulaire(false);
     }
 }
 
@@ -44,42 +51,8 @@ if (textarea && compteur) {
     textarea.addEventListener('input', function () {
         const len = this.value.length;
         compteur.textContent = len;
-        if (len >= 480) {
-            compteur.style.color = '#ef4444';
-        } else if (len >= 400) {
-            compteur.style.color = '#f59e0b';
-        } else {
-            compteur.style.color = '';
-        }
+        compteur.classList.toggle('compteur_limite', len >= 450);
     });
-}
-
-// ===========================
-// CARTE LEAFLET (page contact)
-// ===========================
-if (document.getElementById('map')) {
-    const map = L.map('map').setView([48.8566, 2.3522], 11);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-
-    L.marker([48.8566, 2.3522])
-        .addTo(map)
-        .bindPopup('ZAR — Paris & Île-de-France')
-        .openPopup();
-}
-
-// ===========================
-// MASQUAGE MESSAGE CONFIRMATION
-// ===========================
-const message = document.getElementById('message_confirmation');
-if (message) {
-    setTimeout(function () {
-        message.style.transition = 'opacity 0.4s ease';
-        message.style.opacity = '0';
-        setTimeout(function () { message.style.display = 'none'; }, 400);
-    }, 4000);
 }
 
 }); // fin DOMContentLoaded
@@ -92,10 +65,23 @@ const navBurger = document.getElementById('nav_burger');
 const navLiens  = document.getElementById('nav_liens');
 
 if (navBurger && navLiens) {
+    function basculerMenu(ouvrir) {
+        navLiens.classList.toggle('active', ouvrir);
+        navBurger.classList.toggle('active', ouvrir);
+        navBurger.setAttribute('aria-expanded', ouvrir ? 'true' : 'false');
+        navBurger.setAttribute('aria-label', ouvrir ? 'Fermer le menu' : 'Ouvrir le menu');
+    }
+
     navBurger.addEventListener('click', function () {
-        const isOpen = navLiens.classList.toggle('active');
-        navBurger.classList.toggle('active');
-        navBurger.setAttribute('aria-expanded', isOpen);
+        basculerMenu(!navLiens.classList.contains('active'));
+    });
+
+    // Échap referme le menu et rend le focus au bouton
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && navLiens.classList.contains('active')) {
+            basculerMenu(false);
+            navBurger.focus();
+        }
     });
 }
 
@@ -135,6 +121,13 @@ if (navBurger && navLiens) {
         const gap = getGap();
         track.style.transform = `translateX(-${index * (itemWidth + gap)}px)`;
 
+        // Les photos hors champ sont retirées de l'ordre de tabulation et des lecteurs d'écran
+        items.forEach((item, i) => {
+            const visible = i >= index && i < index + visibles;
+            item.querySelector('button').tabIndex = visible ? 0 : -1;
+            item.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        });
+
         if (btnPrev) btnPrev.disabled = index === 0;
         if (btnNext) btnNext.disabled = index >= maxIndex;
     }
@@ -159,28 +152,49 @@ if (navBurger && navLiens) {
 
     // Lightbox
     if (lightbox && lightboxImg && lightboxFermer) {
+        let declencheur = null; // bouton qui a ouvert la lightbox, pour y rendre le focus
+
+        function ouvrirLightbox(bouton) {
+            const img = bouton.querySelector('img');
+            declencheur = bouton;
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.hidden = false;
+            lightbox.classList.add('active');
+            document.body.classList.add('lightbox_ouverte');
+            lightboxFermer.focus();
+        }
+
+        function fermerLightbox() {
+            if (lightbox.hidden) return;
+            lightbox.classList.remove('active');
+            lightbox.hidden = true;
+            document.body.classList.remove('lightbox_ouverte');
+            if (declencheur) declencheur.focus();
+        }
+
         items.forEach(item => {
-            item.addEventListener('click', () => {
-                const img = item.querySelector('img');
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
-                lightbox.classList.add('active');
-            });
+            const bouton = item.querySelector('button');
+            bouton.addEventListener('click', () => ouvrirLightbox(bouton));
         });
 
-        lightboxFermer.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
+        lightboxFermer.addEventListener('click', fermerLightbox);
 
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
-                lightbox.classList.remove('active');
+                fermerLightbox();
             }
         });
 
         document.addEventListener('keydown', (e) => {
+            if (lightbox.hidden) return;
             if (e.key === 'Escape') {
-                lightbox.classList.remove('active');
+                fermerLightbox();
+            }
+            // Le seul élément focusable de la lightbox est le bouton Fermer : on y garde le focus
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                lightboxFermer.focus();
             }
         });
     }
