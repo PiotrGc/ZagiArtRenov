@@ -71,6 +71,7 @@ if (!isset($_SESSION['admin'])) {
     <title>Admin - ZagiArtRenov</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/admin.css">
+    <?php include "../templates/favicons.php"; ?>
 </head>
 <body>
     <main class="admin_login">
@@ -134,6 +135,7 @@ function bouton_action(string $action, int $id, string $libelle, string $classe,
     <title>Admin - ZagiArtRenov</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/admin.css">
+    <?php include "../templates/favicons.php"; ?>
 </head>
 <body>
 

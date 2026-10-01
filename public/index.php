@@ -17,6 +17,7 @@ if (empty($_SESSION['token'])) {
     <title>Accueil - ZagiArtRenov, artisan rénovation en Île-de-France</title>
     <meta name="description" content="ZagiArtRenov : électricité, plomberie, peinture et menuiserie pour particuliers et professionnels à Paris et en Île-de-France.">
     <link rel="stylesheet" href="css/styles.css">
+    <?php include "../templates/favicons.php"; ?>
 </head>
 <body
     data-avis-envoye="<?php echo isset($_GET['avis_envoye']) ? '1' : '0'; ?>"

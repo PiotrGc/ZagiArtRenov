@@ -6,6 +6,7 @@
     <title>À propos - ZagiArtRenov</title>
     <meta name="description" content="Zvezdan Zaganovic, artisan en rénovation à Paris et en Île-de-France : électricité, plomberie, peinture et menuiserie.">
     <link rel="stylesheet" href="css/styles.css">
+    <?php include "../templates/favicons.php"; ?>
 </head>
 <body>
 

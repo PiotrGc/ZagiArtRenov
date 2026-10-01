@@ -19,6 +19,7 @@ require_once '../config/entreprise.php';
     <title>Contact et demande de devis - ZagiArtRenov</title>
     <meta name="description" content="Demandez un devis gratuit à ZagiArtRenov pour vos travaux d'électricité, plomberie, peinture ou menuiserie en Île-de-France.">
     <link rel="stylesheet" href="css/styles.css">
+    <?php include "../templates/favicons.php"; ?>
 </head>
 
 <body>

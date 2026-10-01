@@ -5,6 +5,8 @@ ServerSignature Off
     Require all denied
 </Files>
 
+AddType application/manifest+json .webmanifest
+
 RewriteEngine On
 
 # Forcer le HTTPS en premier, pour éviter une double redirection http -> http sans .php -> https

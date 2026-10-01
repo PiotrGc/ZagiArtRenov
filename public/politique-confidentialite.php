@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Politique de confidentialité et cookies - ZagiArtRenov</title>
     <link rel="stylesheet" href="css/styles.css">
+    <?php include "../templates/favicons.php"; ?>
 </head>
 <body>
 
