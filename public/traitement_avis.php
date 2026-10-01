@@ -11,8 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-if (!isset($_POST['token']) || !isset($_SESSION['token']) || $_POST['token'] !== $_SESSION['token']) {
+if (!isset($_POST['token']) || !isset($_SESSION['token']) || !is_string($_POST['token']) || !hash_equals($_SESSION['token'], $_POST['token'])) {
     header('Location: /index.php?avis_erreur=1');
+    exit();
+}
+
+// Champ piège rempli : c'est un robot. On fait comme si tout s'était bien passé.
+if (!empty($_POST['site'])) {
+    header('Location: /index.php?avis_envoye=1');
     exit();
 }
 
@@ -22,22 +28,31 @@ if (isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $te
     exit();
 }
 
+// Récupère un champ texte du POST (refuse les tableaux).
+function champ_texte(string $nom): string
+{
+    return isset($_POST[$nom]) && is_string($_POST[$nom]) ? trim($_POST[$nom]) : '';
+}
+
+$nom          = champ_texte('nom');
+$ville        = champ_texte('ville');
+$note         = (int)champ_texte('note');
+$commentaire  = champ_texte('commentaire');
+$consentement = champ_texte('consentement');
+
+// La ville est facultative ; le consentement à la publication est obligatoire.
+if ($nom === '' || $note < 1 || $note > 5 || $commentaire === '' || $consentement !== '1') {
+    header('Location: /index.php?avis_erreur=1');
+    exit;
+}
+
+// mb_strlen : compte les caractères (comme le maxlength du navigateur), pas les octets.
+if (mb_strlen($nom) > 100 || mb_strlen($ville) > 100 || mb_strlen($commentaire) > 500) {
+    header('Location: /index.php?avis_erreur=1');
+    exit;
+}
+
 include('../config/connexion.php');
-
-$nom         = trim($_POST['nom']         ?? '');
-$ville       = trim($_POST['ville']       ?? '');
-$note        = intval($_POST['note']      ?? 0);
-$commentaire = trim($_POST['commentaire'] ?? '');
-
-if (!$nom || !$ville || $note < 1 || $note > 5 || !$commentaire) {
-    header('Location: /index.php?avis_erreur=1');
-    exit;
-}
-
-if (strlen($nom) > 100 || strlen($ville) > 100 || strlen($commentaire) > 500) {
-    header('Location: /index.php?avis_erreur=1');
-    exit;
-}
 
 try {
     $stmt = $conn->prepare("
@@ -58,6 +73,7 @@ try {
     exit;
 
 } catch (PDOException $e) {
+    error_log('Erreur enregistrement avis : ' . $e->getMessage());
     header('Location: /index.php?avis_erreur=1');
     exit;
 }
