@@ -17,9 +17,9 @@
 
         <h2>Éditeur du site</h2>
         <p>
-            <?php echo ENT_NOM_COMMERCIAL; ?><br>
+            <?php echo ENT_RAISON_SOCIALE; ?> (nom commercial : <?php echo ENT_NOM_COMMERCIAL; ?>)<br>
             <?php echo ENT_FORME; ?><br>
-            Dirigeant : <?php echo ENT_DIRIGEANT; ?><br>
+            Gérant : <?php echo ENT_DIRIGEANT; ?><br>
             Adresse : <?php echo ENT_ADRESSE; ?>, <?php echo ENT_CP_VILLE; ?><br>
             Téléphone : <a href="tel:<?php echo ENT_TEL_LIEN; ?>"><?php echo ENT_TEL_AFFICHE; ?></a><br>
             E-mail : <a href="mailto:<?php echo ENT_EMAIL; ?>"><?php echo ENT_EMAIL; ?></a><br>
@@ -32,15 +32,19 @@
         <h2>Hébergement</h2>
         <p><?php echo ENT_HEBERGEUR; ?></p>
 
+        <?php if (ENT_ASSURANCE !== ''): ?>
         <h2>Assurance professionnelle</h2>
         <p>Assurance responsabilité civile décennale : <?php echo ENT_ASSURANCE; ?></p>
+        <?php endif; ?>
 
+        <?php if (ENT_MEDIATEUR !== ''): ?>
         <h2>Médiation de la consommation</h2>
         <p>
             Conformément aux articles L612-1 et suivants du Code de la consommation, en cas de litige non résolu
             directement avec l'entreprise, le client consommateur peut recourir gratuitement au médiateur suivant :
         </p>
         <p><?php echo ENT_MEDIATEUR; ?></p>
+        <?php endif; ?>
 
         <h2>Propriété intellectuelle</h2>
         <p>

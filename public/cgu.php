@@ -86,9 +86,12 @@
         <h2>9. Droit applicable et litiges</h2>
         <p>
             Les présentes conditions sont soumises au droit français. En cas de litige, une solution amiable sera
-            recherchée en priorité. Le consommateur peut recourir gratuitement au médiateur de la consommation
-            indiqué dans les <a href="mentions-legales.php">mentions légales</a>. À défaut d'accord, les
-            tribunaux français seront compétents.
+            recherchée en priorité.
+            <?php if (ENT_MEDIATEUR !== ''): ?>
+            Le consommateur peut recourir gratuitement au médiateur de la consommation
+            indiqué dans les <a href="mentions-legales.php">mentions légales</a>.
+            <?php endif; ?>
+            À défaut d'accord, les tribunaux français seront compétents.
         </p>
     </article>
 
