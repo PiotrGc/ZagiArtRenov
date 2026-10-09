@@ -12,16 +12,17 @@
 
 function limite_dossier(): ?string
 {
-    // Dossier du projet en priorité, sinon le dossier temporaire du serveur.
-    foreach ([__DIR__ . '/../var/limites', sys_get_temp_dir() . '/zar_limites'] as $dossier) {
-        if (!is_dir($dossier)) {
-            @mkdir($dossier, 0700, true);
-        }
-        if (is_dir($dossier) && is_writable($dossier)) {
-            return $dossier;
-        }
+    // Uniquement le dossier privé du projet : pas de repli sur le dossier temporaire
+    // du serveur, partagé avec les autres comptes de l'hébergement (ils pourraient
+    // y créer le dossier avant nous ou effacer les compteurs).
+    $dossier = __DIR__ . '/../var/limites';
+    if (!is_dir($dossier)) {
+        @mkdir($dossier, 0700, true);
     }
-    error_log('Limiteur : aucun dossier accessible en écriture, actions refusées.');
+    if (is_dir($dossier) && !is_link($dossier) && is_writable($dossier)) {
+        return $dossier;
+    }
+    error_log('Limiteur : dossier var/limites inaccessible en écriture, actions refusées.');
     return null;
 }
 
