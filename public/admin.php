@@ -31,10 +31,12 @@ require '../config/limite.php';
 
 // Traitement de la connexion
 if (isset($_POST['password']) && is_string($_POST['password'])) {
-    if (limite_atteinte('admin', $max_essais, $duree_blocage)) {
-        $erreur_blocage = true;
-    } elseif (!isset($_POST['token']) || !is_string($_POST['token']) || !hash_equals($_SESSION['token'], $_POST['token'])) {
+    if (!isset($_POST['token']) || !is_string($_POST['token']) || !hash_equals($_SESSION['token'], $_POST['token'])) {
         $erreur_login = true;
+    } elseif (!limite_consommer('admin', $max_essais, $duree_blocage)) {
+        // L'essai est compté AVANT la vérification du mot de passe (sous verrou) :
+        // des essais envoyés en parallèle ne peuvent pas dépasser la limite.
+        $erreur_blocage = true;
     } else {
         require '../config/config.php';
         if (password_verify($_POST['password'], ADMIN_PASS)) {
@@ -46,7 +48,6 @@ if (isset($_POST['password']) && is_string($_POST['password'])) {
             header("Location: admin.php");
             exit();
         }
-        limite_enregistrer('admin', $duree_blocage);
         sleep(1);
         $erreur_login = true;
     }

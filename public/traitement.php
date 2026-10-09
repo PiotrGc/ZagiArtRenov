@@ -28,8 +28,7 @@ if (!empty($_POST['site'])) {
 $temps_attente = 600;
 require '../config/limite.php';
 
-if ((isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente)
-    || limite_atteinte('contact', 3, 3600)) {
+if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente) {
     header("Location: /contact.php?temps=1");
     exit();
 }
@@ -82,6 +81,12 @@ if (!array_key_exists($presta, $prestations_autorisees)) {
     exit();
 }
 
+// Limite par IP comptée juste avant l'envoi (compteur atomique, voir config/limite.php).
+if (!limite_consommer('contact', 3, 3600)) {
+    header("Location: /contact.php?temps=1");
+    exit();
+}
+
 require "../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -116,7 +121,6 @@ try {
     $mail->send();
 
     $_SESSION['dernier_envoi'] = time();
-    limite_enregistrer('contact', 3600);
 
     header("Location: /contact.php?envoye=1");
 

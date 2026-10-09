@@ -25,8 +25,7 @@ if (!empty($_POST['site'])) {
 // Limite par session + par IP (sinon un robot qui jette ses cookies remplit la table).
 $temps_attente_avis = 300;
 require '../config/limite.php';
-if ((isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $temps_attente_avis)
-    || limite_atteinte('avis', 3, 3600)) {
+if (isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $temps_attente_avis) {
     header('Location: /index.php?avis_erreur=1');
     exit();
 }
@@ -64,6 +63,12 @@ if (mots_interdits_trouves($nom . ' | ' . $ville . ' | ' . $commentaire)) {
     exit;
 }
 
+// Limite par IP comptée juste avant l'enregistrement (compteur atomique, voir config/limite.php).
+if (!limite_consommer('avis', 3, 3600)) {
+    header('Location: /index.php?avis_erreur=1');
+    exit;
+}
+
 include('../config/connexion.php');
 
 try {
@@ -80,7 +85,6 @@ try {
     ]);
 
     $_SESSION['dernier_avis'] = time();
-    limite_enregistrer('avis', 3600);
 
     header('Location: /index.php?avis_envoye=1');
     exit;
