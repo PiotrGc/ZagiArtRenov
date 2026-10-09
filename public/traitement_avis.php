@@ -22,8 +22,11 @@ if (!empty($_POST['site'])) {
     exit();
 }
 
+// Limite par session + par IP (sinon un robot qui jette ses cookies remplit la table).
 $temps_attente_avis = 300;
-if (isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $temps_attente_avis) {
+require '../config/limite.php';
+if ((isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $temps_attente_avis)
+    || limite_atteinte('avis', 3, 3600)) {
     header('Location: /index.php?avis_erreur=1');
     exit();
 }
@@ -31,7 +34,9 @@ if (isset($_SESSION['dernier_avis']) && time() - $_SESSION['dernier_avis'] < $te
 // Récupère un champ texte du POST (refuse les tableaux).
 function champ_texte(string $nom): string
 {
-    return isset($_POST[$nom]) && is_string($_POST[$nom]) ? trim($_POST[$nom]) : '';
+    // Texte non UTF-8 refusé : il fausserait le filtre des termes interdits et l'affichage.
+    return isset($_POST[$nom]) && is_string($_POST[$nom]) && mb_check_encoding($_POST[$nom], 'UTF-8')
+        ? trim($_POST[$nom]) : '';
 }
 
 $nom          = champ_texte('nom');
@@ -52,6 +57,13 @@ if (mb_strlen($nom) > 100 || mb_strlen($ville) > 100 || mb_strlen($commentaire) 
     exit;
 }
 
+// Termes injurieux / racistes : l'avis est refusé avant même d'arriver en modération.
+require '../config/mots_interdits.php';
+if (mots_interdits_trouves($nom . ' | ' . $ville . ' | ' . $commentaire)) {
+    header('Location: /index.php?avis_refuse=1');
+    exit;
+}
+
 include('../config/connexion.php');
 
 try {
@@ -68,6 +80,7 @@ try {
     ]);
 
     $_SESSION['dernier_avis'] = time();
+    limite_enregistrer('avis', 3600);
 
     header('Location: /index.php?avis_envoye=1');
     exit;

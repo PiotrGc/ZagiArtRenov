@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>À propos - ZagiArtRenov</title>
     <meta name="description" content="Zvezdan Zaganovic, artisan en rénovation à Paris et en Île-de-France : électricité, plomberie, peinture et menuiserie.">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=20261009b">
     <?php include "../templates/favicons.php"; ?>
 </head>
 <body>
@@ -15,7 +15,7 @@
     <!-- HERO À PROPOS -->
     <section class="about_hero">
         <div class="about_photo">
-            <img src="img/photo_profil.jpg" alt="Portrait de Zvezdan Zaganovic">
+            <img src="img/photo_profil.jpg" width="2316" height="3088" alt="Portrait de Zvezdan Zaganovic">
         </div>
         <div class="about_info">
             <h1>Zvezdan Zaganovic</h1>
@@ -85,12 +85,12 @@
 
         <div class="galerie_viewport">
             <ul class="galerie_track">
-                <li class="galerie_item"><button type="button" class="galerie_bouton"><img src="img/chambre.jpg" alt="Chambre avant / après : murs jaunis et moquette usée, puis murs repeints en blanc, sol stratifié et placard posé"></button></li>
-                <li class="galerie_item"><button type="button" class="galerie_bouton"><img src="img/chambre2.jpg" alt="Deuxième chambre avant / après : papier peint décollé et sol abîmé, puis murs blancs, parquet stratifié et nouvel éclairage"></button></li>
-                <li class="galerie_item"><button type="button" class="galerie_bouton"><img src="img/cuisine.jpg" alt="Cuisine avant / après : meubles en bois des années 70 et faïence orange, puis cuisine blanche équipée avec plan de travail noir et carrelage métro"></button></li>
-                <li class="galerie_item"><button type="button" class="galerie_bouton"><img src="img/salle_de_bain.jpg" alt="Salle de bain avant / après : carrelage rose ancien et baignoire jaunie, puis faïence grise, baignoire neuve, meuble vasque et sèche-serviettes"></button></li>
-                <li class="galerie_item"><button type="button" class="galerie_bouton"><img src="img/toilette.jpg" alt="Toilettes avant / après : murs sales et tuyauterie apparente, puis murs blancs, lave-mains, carrelage clair et nouvelle alimentation en eau"></button></li>
-                <li class="galerie_item"><button type="button" class="galerie_bouton"><img src="img/couloir.jpg" alt="Couloir d'entrée avant / après : boiseries défraîchies et tableau électrique apparent, puis murs et portes repeints en blanc"></button></li>
+                <li class="galerie_item"><button type="button" class="galerie_bouton"><img loading="lazy" src="img/chambre.jpg" alt="Chambre avant / après : murs jaunis et moquette usée, puis murs repeints en blanc, sol stratifié et placard posé"></button></li>
+                <li class="galerie_item"><button type="button" class="galerie_bouton"><img loading="lazy" src="img/chambre2.jpg" alt="Deuxième chambre avant / après : papier peint décollé et sol abîmé, puis murs blancs, parquet stratifié et nouvel éclairage"></button></li>
+                <li class="galerie_item"><button type="button" class="galerie_bouton"><img loading="lazy" src="img/cuisine.jpg" alt="Cuisine avant / après : meubles en bois des années 70 et faïence orange, puis cuisine blanche équipée avec plan de travail noir et carrelage métro"></button></li>
+                <li class="galerie_item"><button type="button" class="galerie_bouton"><img loading="lazy" src="img/salle_de_bain.jpg" alt="Salle de bain avant / après : carrelage rose ancien et baignoire jaunie, puis faïence grise, baignoire neuve, meuble vasque et sèche-serviettes"></button></li>
+                <li class="galerie_item"><button type="button" class="galerie_bouton"><img loading="lazy" src="img/toilette.jpg" alt="Toilettes avant / après : murs sales et tuyauterie apparente, puis murs blancs, lave-mains, carrelage clair et nouvelle alimentation en eau"></button></li>
+                <li class="galerie_item"><button type="button" class="galerie_bouton"><img loading="lazy" src="img/couloir.jpg" alt="Couloir d'entrée avant / après : boiseries défraîchies et tableau électrique apparent, puis murs et portes repeints en blanc"></button></li>
             </ul>
         </div>
 

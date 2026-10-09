@@ -1,9 +1,10 @@
 Options -Indexes
 ServerSignature Off
 
-<Files ".htaccess">
+# Fichiers cachés (.htaccess, .user.ini...) jamais servis
+<FilesMatch "^\.">
     Require all denied
-</Files>
+</FilesMatch>
 
 AddType application/manifest+json .webmanifest
 
@@ -13,8 +14,10 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Rediriger proprement les anciennes URLs en .php vers la version sans extension
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*\.php[\ ?] [NC]
+# Rediriger proprement les anciennes URLs en .php vers la version sans extension.
+# Uniquement GET/HEAD : une redirection 301 sur un POST le transforme en GET
+# et les données des formulaires (devis, avis, admin) seraient perdues.
+RewriteCond %{THE_REQUEST} ^(GET|HEAD)\ /.*\.php[\ ?] [NC]
 RewriteRule ^(.*)\.php$ /$1 [R=301,L]
 
 # Servir le bon fichier .php en interne quand l'URL n'a pas d'extension
@@ -33,7 +36,9 @@ RewriteRule ^(.*)$ $1.php [L]
     Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
 </IfModule>
 
+# Ne jamais afficher les erreurs PHP aux visiteurs, mais les garder dans les logs.
+# (Ce bloc ne vaut qu'avec mod_php ; en PHP-FPM, c'est public/.user.ini qui s'applique.)
 <IfModule mod_php.c>
     php_flag display_errors off
-    php_value error_reporting 0
+    php_flag log_errors on
 </IfModule>

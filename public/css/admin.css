@@ -1,25 +1,47 @@
+/* Administration des avis : pensée pour le confort de lecture.
+   Texte plus grand, contrastes doux (pas de blanc pur sur noir pur),
+   une carte par avis, gros boutons, et thème sombre automatique
+   si l'ordinateur ou le téléphone est réglé en mode sombre. */
 :root {
-    --couleur-primaire:   #0F2640;
-    --bleu-mid:           #1B3A5C;
-    --bleu-light:         #243F63;
-    --couleur-secondaire: #F4A825;
-    --or-dark:            #D4891A;
-    --couleur-fond:       #F5F3EE;
-    --blanc:              #FFFFFF;
-    --couleur-texte:      #1A1A1A;
-    --couleur-muted:      #6A6A72;
-    --couleur-border:     #DDD9D0;
-    --ombre:      0 4px 24px rgba(15,38,64,0.10);
-    --ombre-md:   0 8px 40px rgba(15,38,64,0.14);
-    --font-titre: 'Bebas Neue', sans-serif;
-    --font-corps: 'Inter', sans-serif;
-    --radius:     10px;
-    --transition: 0.22s cubic-bezier(.4,0,.2,1);
+    --admin-fond:      #F3F5F8;
+    --admin-surface:   #FFFFFF;
+    --admin-bord:      #DCE1E8;
+    --admin-texte:     #1E2733;
+    --admin-doux:      #5A6573;   /* 5.6:1 sur --admin-surface */
+    --admin-entete:    #0F2640;
+    --admin-accent:    #F4A825;
+    --admin-ok-fond:   #E3F4E8;
+    --admin-ok-texte:  #14532D;
+    --admin-att-fond:  #FDF1D8;
+    --admin-att-texte: #7A4B00;
+    --admin-sup-fond:  #FBE4E4;
+    --admin-sup-texte: #8F1D1D;
+    --admin-alerte:    #B42318;
 }
 
-body {
-    background-color: var(--couleur-fond);
-    font-family: var(--font-corps);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --admin-fond:      #141B24;
+        --admin-surface:   #1C2530;
+        --admin-bord:      #2E3A48;
+        --admin-texte:     #E3E8EE;
+        --admin-doux:      #A3AEBB;
+        --admin-entete:    #0D1620;
+        --admin-ok-fond:   #183A26;
+        --admin-ok-texte:  #B7EBC8;
+        --admin-att-fond:  #3E2F12;
+        --admin-att-texte: #F6D693;
+        --admin-sup-fond:  #45201F;
+        --admin-sup-texte: #F5BDBA;
+        --admin-alerte:    #F59C94;
+    }
+}
+
+body.admin {
+    background-color: var(--admin-fond);
+    color: var(--admin-texte);
+    font-size: 1.0625rem;
+    line-height: 1.6;
 }
 
 /* ===========================
@@ -34,155 +56,221 @@ body {
 }
 
 .admin_login_card {
-    background: white;
-    border: 1px solid var(--couleur-border);
-    border-top: 4px solid var(--couleur-primaire);
-    border-radius: 10px;
-    padding: 40px;
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-bord);
+    border-top: 4px solid var(--admin-accent);
+    border-radius: 8px;
+    padding: 36px;
     width: 100%;
     max-width: 400px;
 }
 
 .admin_login_card h1 {
     font-family: var(--font-titre);
-    font-size: 2rem;
-    color: var(--couleur-primaire);
-    letter-spacing: 1px;
+    font-weight: 400;
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--admin-texte);
     margin-bottom: 4px;
 }
 
 .admin_login_card > p {
-    font-size: 0.9rem;
-    color: var(--couleur-muted);
+    color: var(--admin-doux);
     margin-bottom: 24px;
 }
 
-/* ===========================
-   HEADER ADMIN
-=========================== */
-.admin_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--couleur-primaire);
-    padding: 16px 40px;
+/* Champs : mêmes couleurs que le thème (clair ou sombre) */
+.admin .form_groupe label { color: var(--admin-texte); }
+
+.admin .form_groupe input {
+    background: var(--admin-fond);
+    color: var(--admin-texte);
+    border-color: var(--admin-doux);
 }
 
-.admin_header h1 {
+/* ===========================
+   EN-TÊTE ADMIN
+=========================== */
+.admin_header {
+    background-color: var(--admin-entete);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.admin_header_inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px 28px;
+    flex-wrap: wrap;
+}
+
+.admin_titre {
     font-family: var(--font-titre);
-    font-size: 1.5rem;
-    color: white;
-    letter-spacing: 1px;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #FFFFFF;
+    margin-right: auto;
+}
+
+.admin_titre span { color: var(--admin-accent); }
+
+/* « header nav » de styles.css (menu du site) ne doit pas s'appliquer ici */
+.admin_header .admin_nav {
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+.admin_nav a {
+    color: #D5DAE1;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin_nav a:hover { color: #FFFFFF; }
+
+.admin_badge {
+    background-color: var(--admin-accent);
+    color: #0F2640;
+    font-size: 0.8rem;
+    font-weight: 700;
+    min-width: 26px;
+    padding: 1px 8px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.admin_badge_neutre {
+    background-color: #2C4A70;
+    color: #FFFFFF;
 }
 
 .admin_logout {
     font-family: var(--font-corps);
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.85);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #FFFFFF;
     background: none;
     cursor: pointer;
-    text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 8px 14px;
     border-radius: 6px;
 }
 
-.admin_logout:hover {
-    color: white;
-    border-color: white;
-}
+.admin_logout:hover { border-color: #FFFFFF; }
+
+.admin_header a:focus-visible,
+.admin_header button:focus-visible { outline-color: var(--admin-accent); }
 
 /* ===========================
-   CONTENU ADMIN
+   CONTENU
 =========================== */
 .admin_contenu {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 40px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 24px 64px;
 }
 
 .admin_section {
-    background: white;
-    border: 1px solid var(--couleur-border);
-    border-radius: 10px;
-    padding: 28px;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
+    scroll-margin-top: 80px;
 }
 
 .admin_section h2 {
     font-family: var(--font-titre);
-    font-size: 1.5rem;
-    color: var(--couleur-primaire);
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-weight: 400;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--admin-texte);
+    margin-bottom: 8px;
 }
 
-.admin_badge {
-    background-color: var(--couleur-secondaire);
-    color: var(--couleur-primaire);
-    font-family: var(--font-corps);
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 20px;
-}
-
-.admin_badge_vert {
-    background-color: #D4EDDA;
-    color: #155724;
+.admin_aide {
+    color: var(--admin-doux);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    max-width: 60ch;
 }
 
 .admin_vide {
-    font-size: 0.9rem;
-    color: var(--couleur-muted);
+    color: var(--admin-doux);
+    padding: 24px;
+    border: 2px dashed var(--admin-bord);
+    border-radius: 8px;
     text-align: center;
-    padding: 20px 0;
+}
+
+.admin_liste {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 /* ===========================
-   TABLE
+   CARTE AVIS
 =========================== */
-.admin_table_wrapper {
-    overflow-x: auto;
+.admin_avis {
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-bord);
+    border-left: 4px solid var(--admin-accent);
+    border-radius: 8px;
+    padding: 20px 22px;
 }
 
-.admin_table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
+#publies .admin_avis { border-left-color: var(--admin-ok-texte); }
+
+.admin_avis.admin_avis_signale { border-left-color: var(--admin-alerte); }
+
+.admin_avis_entete {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
-.admin_table thead {
-    background-color: var(--couleur-fond);
+.admin_avis_nom {
+    font-weight: 700;
+    font-size: 1.1rem;
+    overflow-wrap: anywhere;
 }
 
-.admin_table th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--couleur-primaire);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 1px solid var(--couleur-border);
+.admin_avis_ville {
+    font-weight: 400;
+    color: var(--admin-doux);
+    margin-left: 6px;
 }
 
-.admin_table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--couleur-border);
-    color: var(--couleur-texte);
-    vertical-align: top;
+.admin_avis_meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    color: var(--admin-doux);
+    font-size: 0.9rem;
 }
 
-.admin_table tbody tr:last-child td {
-    border-bottom: none;
+.admin_etoiles {
+    color: var(--admin-accent);
+    letter-spacing: 2px;
 }
 
-.admin_table tbody tr:hover {
-    background-color: var(--couleur-fond);
+.admin_avis_texte {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+    max-width: 70ch;
+    margin-bottom: 16px;
+}
+
+.admin_alerte {
+    color: var(--admin-alerte);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
 }
 
 /* ===========================
@@ -190,66 +278,57 @@ body {
 =========================== */
 .admin_actions {
     display: flex;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
+
+.admin_form_action { display: inline; }
 
 .btn_valider,
 .btn_supprimer,
 .btn_depublier {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    white-space: nowrap;
-    border: none;
-    cursor: pointer;
     font-family: var(--font-corps);
-}
-
-.admin_form_action {
-    display: inline;
+    font-size: 0.95rem;
+    font-weight: 700;
+    min-height: 42px;
+    padding: 8px 18px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 .btn_valider {
-    background-color: #D4EDDA;
-    color: #155724;
-}
-
-.btn_valider:hover {
-    background-color: #C3E6CB;
-}
-
-.btn_supprimer {
-    background-color: #F8D7DA;
-    color: #721C24;
-}
-
-.btn_supprimer:hover {
-    background-color: #F5C6CB;
+    background-color: var(--admin-ok-fond);
+    color: var(--admin-ok-texte);
 }
 
 .btn_depublier {
-    background-color: #FFF3CD;
-    color: #856404;
+    background-color: var(--admin-att-fond);
+    color: var(--admin-att-texte);
 }
 
-.btn_depublier:hover {
-    background-color: #FFEEBA;
+.btn_supprimer {
+    background-color: transparent;
+    color: var(--admin-sup-texte);
+    border-color: var(--admin-bord);
 }
+
+.btn_valider:hover,
+.btn_depublier:hover { border-color: currentColor; }
+
+.btn_supprimer:hover { background-color: var(--admin-sup-fond); }
 
 /* ===========================
    RESPONSIVE
 =========================== */
-@media (max-width: 768px) {
-    .admin_header {
-        padding: 16px 20px;
-    }
-    .admin_contenu {
-        padding: 0 20px;
-        margin: 24px auto;
-    }
-    .admin_section {
-        padding: 20px;
-    }
+@media (max-width: 640px) {
+    .admin_header { position: static; }
+    .admin_header_inner { padding: 10px 16px; gap: 10px 16px; }
+    .admin_titre { width: 100%; }
+    .admin_header .admin_nav { margin-right: auto; }
+    .admin_contenu { padding: 20px 16px 48px; }
+    .admin_avis { padding: 16px; }
+    .admin_actions .admin_form_action { flex: 1; }
+    .admin_actions button { width: 100%; }
 }
