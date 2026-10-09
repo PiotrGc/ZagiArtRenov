@@ -6,7 +6,8 @@ session_set_cookie_params([
 ]);
 session_start();
 
-if (!isset($_SESSION['admin'])) {
+// Même délai d'inactivité que admin.php (30 minutes).
+if (!isset($_SESSION['admin']) || time() - ($_SESSION['admin_activite'] ?? 0) > 1800) {
     header("Location: /admin.php");
     exit();
 }

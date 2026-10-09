@@ -15,7 +15,7 @@
         <div class="nav_liens" id="nav_liens">
             <a href="index.php" <?php echo $page_courante === 'index' ? 'aria-current="page"' : ''; ?>>Accueil</a>
             <a href="apropos.php" <?php echo $page_courante === 'apropos' ? 'aria-current="page"' : ''; ?>>À propos</a>
-            <a href="contact.php" <?php echo $page_courante === 'contact' ? 'aria-current="page"' : ''; ?>>Contact</a>
+            <a href="contact.php" class="nav_cta" <?php echo $page_courante === 'contact' ? 'aria-current="page"' : ''; ?>>Demander un devis</a>
         </div>
     </nav>
 </header>

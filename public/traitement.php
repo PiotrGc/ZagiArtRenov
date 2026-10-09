@@ -23,10 +23,13 @@ if (!empty($_POST['site'])) {
     exit();
 }
 
-// Limite par session (anti double envoi). Ne protège pas d'un robot qui jette ses cookies.
+// Limite par session (anti double envoi) + limite par IP (un robot qui jette ses cookies
+// pourrait sinon vider le quota d'envoi du compte Gmail et le faire bloquer).
 $temps_attente = 600;
+require '../config/limite.php';
 
-if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente) {
+if ((isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $temps_attente)
+    || limite_atteinte('contact', 3, 3600)) {
     header("Location: /contact.php?temps=1");
     exit();
 }
@@ -35,7 +38,9 @@ if (isset($_SESSION['dernier_envoi']) && time() - $_SESSION['dernier_envoi'] < $
 // l'e-mail est envoyé en texte brut, htmlspecialchars y afficherait des &amp; etc.
 function champ_texte(string $nom): string
 {
-    return isset($_POST[$nom]) && is_string($_POST[$nom]) ? trim($_POST[$nom]) : '';
+    // Texte non UTF-8 refusé : il fausserait le filtre des termes interdits et l'affichage.
+    return isset($_POST[$nom]) && is_string($_POST[$nom]) && mb_check_encoding($_POST[$nom], 'UTF-8')
+        ? trim($_POST[$nom]) : '';
 }
 
 $nom          = champ_texte("nom");
@@ -111,6 +116,7 @@ try {
     $mail->send();
 
     $_SESSION['dernier_envoi'] = time();
+    limite_enregistrer('contact', 3600);
 
     header("Location: /contact.php?envoye=1");
 
