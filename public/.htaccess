@@ -1,5 +1,6 @@
 Options -Indexes
 ServerSignature Off
+ErrorDocument 404 /404.php
 
 # Fichiers cachés (.htaccess, .user.ini...) jamais servis
 <FilesMatch "^\.">
@@ -12,6 +13,8 @@ RewriteEngine On
 
 # Forcer le HTTPS en premier, pour éviter une double redirection http -> http sans .php -> https
 RewriteCond %{HTTPS} off
+# Sauf en local (XAMPP sans HTTPS) : http://zagiartrenov.local reste en HTTP.
+RewriteCond %{HTTP_HOST} !^zagiartrenov\.local$ [NC]
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Rediriger proprement les anciennes URLs en .php vers la version sans extension.

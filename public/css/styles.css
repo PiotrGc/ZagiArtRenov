@@ -869,6 +869,7 @@ header nav img {
     background: var(--regle);
 }
 
+.cta_bande h1,
 .cta_bande h2 {
     font-family: var(--font-titre);
     font-weight: 400;

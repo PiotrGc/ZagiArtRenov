@@ -35,5 +35,8 @@ define('ENT_MEDIATEUR',      '');
 // Hébergeur du site (LCEN art. 6 III).
 define('ENT_HEBERGEUR',      'o2switch, SAS au capital de 100 000 €, Chemin des Pardiaux, 63000 Clermont-Ferrand. Téléphone : 04 44 44 60 40. Site : www.o2switch.fr');
 
+// Adresse publique du site (liens canoniques, sitemap, aperçus de partage). Sans « / » final.
+define('ENT_SITE',           'https://zagiartrenov.fr');
+
 // Date de dernière mise à jour des pages légales.
 define('ENT_MAJ_LEGALE',     '1er octobre 2026');

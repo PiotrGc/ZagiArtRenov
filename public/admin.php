@@ -72,8 +72,8 @@ if (!isset($_SESSION['admin'])) {
     <meta name="robots" content="noindex, nofollow">
     <meta name="color-scheme" content="light dark">
     <title>Admin - ZagiArtRenov</title>
-    <link rel="stylesheet" href="css/styles.css?v=20261009b">
-    <link rel="stylesheet" href="css/admin.css?v=20261009b">
+    <link rel="stylesheet" href="css/styles.css?v=20261108">
+    <link rel="stylesheet" href="css/admin.css?v=20261108">
     <?php include "../templates/favicons.php"; ?>
 </head>
 <body class="admin">
@@ -184,8 +184,8 @@ function carte_avis(array $avis, bool $publie, string $token): void
     <meta name="robots" content="noindex, nofollow">
     <meta name="color-scheme" content="light dark">
     <title>Admin - ZagiArtRenov</title>
-    <link rel="stylesheet" href="css/styles.css?v=20261009b">
-    <link rel="stylesheet" href="css/admin.css?v=20261009b">
+    <link rel="stylesheet" href="css/styles.css?v=20261108">
+    <link rel="stylesheet" href="css/admin.css?v=20261108">
     <?php include "../templates/favicons.php"; ?>
 </head>
 <body class="admin">

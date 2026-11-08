@@ -18,8 +18,9 @@ require_once '../config/entreprise.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact et demande de devis - ZagiArtRenov</title>
     <meta name="description" content="Demandez un devis gratuit à ZagiArtRenov pour vos travaux d'électricité, plomberie, peinture ou menuiserie en Île-de-France.">
-    <link rel="stylesheet" href="css/styles.css?v=20261009b">
+    <link rel="stylesheet" href="css/styles.css?v=20261108">
     <?php include "../templates/favicons.php"; ?>
+    <?php include "../templates/meta.php"; ?>
 </head>
 
 <body>

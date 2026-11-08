@@ -18,8 +18,44 @@ require_once '../config/mots_interdits.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Accueil - ZagiArtRenov, artisan rénovation en Île-de-France</title>
     <meta name="description" content="ZagiArtRenov : électricité, plomberie, peinture et menuiserie pour particuliers et professionnels à Paris et en Île-de-France.">
-    <link rel="stylesheet" href="css/styles.css?v=20261009b">
+    <link rel="stylesheet" href="css/styles.css?v=20261108">
     <?php include "../templates/favicons.php"; ?>
+    <?php include "../templates/meta.php"; ?>
+    <?php
+    // Fiche « entreprise locale » lue par Google (zone, horaires, contact). Ce JSON n'est pas exécuté : la CSP ne le bloque pas.
+    // Pas de note moyenne : Google ignore les avis qu'une entreprise affiche sur son propre site.
+    [$code_postal, $ville] = explode(' ', ENT_CP_VILLE, 2);
+    $fiche = [
+        '@context'  => 'https://schema.org',
+        '@type'     => 'HomeAndConstructionBusiness',
+        'name'      => ENT_NOM_COMMERCIAL,
+        'url'       => ENT_SITE . '/',
+        'image'     => ENT_SITE . '/img/cuisine.jpg',
+        'logo'      => ENT_SITE . '/img/logo_ZAR.png',
+        'telephone' => ENT_TEL_LIEN,
+        'email'     => ENT_EMAIL,
+        'address'   => [
+            '@type'           => 'PostalAddress',
+            'streetAddress'   => ENT_ADRESSE,
+            'postalCode'      => $code_postal,
+            'addressLocality' => $ville,
+            'addressCountry'  => 'FR',
+        ],
+        'areaServed' => [
+            ['@type' => 'City', 'name' => 'Paris'],
+            ['@type' => 'AdministrativeArea', 'name' => 'Île-de-France'],
+        ],
+        // shortcut: recopie ENT_HORAIRES (« du lundi au samedi, 8 h à 17 h ») ; à changer aussi ici si les horaires changent.
+        'openingHoursSpecification' => [[
+            '@type'     => 'OpeningHoursSpecification',
+            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            'opens'     => '08:00',
+            'closes'    => '17:00',
+        ]],
+        'knowsAbout' => ['Électricité', 'Plomberie', 'Peinture', 'Menuiserie'],
+    ];
+    ?>
+    <script type="application/ld+json"><?php echo json_encode($fiche, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG); ?></script>
 </head>
 <body
     data-avis-envoye="<?php echo isset($_GET['avis_envoye']) ? '1' : '0'; ?>"

@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>À propos - ZagiArtRenov</title>
     <meta name="description" content="Zvezdan Zaganovic, artisan en rénovation à Paris et en Île-de-France : électricité, plomberie, peinture et menuiserie.">
-    <link rel="stylesheet" href="css/styles.css?v=20261009b">
+    <link rel="stylesheet" href="css/styles.css?v=20261108">
     <?php include "../templates/favicons.php"; ?>
+    <?php include "../templates/meta.php"; ?>
 </head>
 <body>
 
@@ -15,7 +16,7 @@
     <!-- HERO À PROPOS -->
     <section class="about_hero">
         <div class="about_photo">
-            <img src="img/photo_profil.jpg" width="2316" height="3088" alt="Portrait de Zvezdan Zaganovic">
+            <img src="img/photo_profil.jpg" width="480" height="640" alt="Portrait de Zvezdan Zaganovic">
         </div>
         <div class="about_info">
             <h1>Zvezdan Zaganovic</h1>

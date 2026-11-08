@@ -1,5 +1,3 @@
 config/config.php
 config/connexion.php
-database.sql
-/vendor/
 /var/

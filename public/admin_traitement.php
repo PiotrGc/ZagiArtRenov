@@ -11,6 +11,7 @@ if (!isset($_SESSION['admin']) || time() - ($_SESSION['admin_activite'] ?? 0) > 
     header("Location: /admin.php");
     exit();
 }
+$_SESSION['admin_activite'] = time();
 
 // Actions en POST uniquement + jeton CSRF : un lien piégé ouvert par l'admin
 // ne peut plus valider ou supprimer un avis à son insu.
